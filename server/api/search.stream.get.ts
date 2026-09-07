@@ -51,11 +51,6 @@ export default defineEventHandler(async (event: H3Event) => {
   // 微信关注公众号登录态校验（恒强制）。二态：
   // - "ok"           → 放行
   // - "unauthorized" → 无凭证或凭证失效 → 401 触发前端重新引导关注
-  const wxAuth = await requireWxAuth(event);
-  if (wxAuth === "unauthorized") {
-    throw createError({ statusCode: 401, statusMessage: "wx auth required" });
-  }
-
   // ---- 页面端搜索配额已下线（2026-09-05）----
   // floating-unlock 看广告解锁整体移除：强制广告转化低且伤体验。
   // 登录（401 闸门）仍是搜索前提。
