@@ -1,12 +1,5 @@
 <template>
-  <!-- 正常客户页面布局：导航/公告/浮窗 -->
-  <!-- 顶部导航：接入 site-navbar Web Component（头像登录依赖 wx-auth-sdk，脚本见下方 useHead） -->
-  <ClientOnly>
-    <site-navbar></site-navbar>
-  </ClientOnly>
- 
-  <!-- 公告条（2026-09-05 改造：内容由后端从官方站拉取（/api/announcement），多条轮播；
-       单条超宽时左右来回滚动；关闭后不再显示，上游升级 version 后重新展示） -->
+  <!-- 公告条 -->
   <div v-if="showAnnouncement" class="announce-bar" role="status">
     <span class="announce-bar__icon" aria-hidden="true">📢</span>
     <div ref="viewportEl" class="announce-bar__viewport">
@@ -35,14 +28,14 @@
     <slot />
   </main>
  
-  <!-- 页脚（隐私政策链接） -->
+  <!-- 页脚 -->
   <footer class="site-footer">
     <NuxtLink to="/privacy" class="footer-link">隐私政策</NuxtLink>
     <span class="footer-sep">·</span>
     <span class="footer-copy">© {{ new Date().getFullYear() }} PanHub</span>
   </footer>
  
-  <!-- 自定义支持弹窗：替换原 floating-unlock 外部组件，使用自己的二维码 -->
+  <!-- 自定义支持弹窗 -->
   <Teleport to="body">
     <div v-if="showSupportModal" class="support-overlay" @click.self="closeSupportModal">
       <div class="support-modal">
@@ -62,8 +55,6 @@
 </template>
  
 <script setup lang="ts">
-// 悬浮二维码 Web Component（公众号/赞赏码）：仅正常客户页面加载。
-// 顶部导航 site-navbar Web Component + 头像登录依赖 wx-auth-sdk。
 useHead({
   script: [
     {
@@ -74,14 +65,6 @@ useHead({
       innerHTML: `WxAuth.init({ silent: true, required: false })`,
       body: true,
     },
-    {
-      src: "https://unpkg.com/@wu529778790/site-navbar@latest/dist/site-navbar.wc.js",
-      body: true,
-    },
-    {
-      src: "https://unpkg.com/@wu529778790/floating-qr@latest/dist/floating-qr.wc.js",
-      body: true,
-    },
   ],
 });
  
@@ -90,7 +73,6 @@ const { loadSettings } = useSettings();
 onMounted(() => {
   loadSettings();
   loadAnnouncements();
-  // 监听自定义事件，由 useUnlockAd 触发显示弹窗
   window.addEventListener("show-support-modal", onShowSupportModal);
 });
  
@@ -206,9 +188,7 @@ function dismissAnnouncement() {
 </script>
  
 <style scoped>
-/* 顶部导航已接入 site-navbar Web Component，样式由组件自带，此处不再维护 */
- 
-/* 公告条（全宽细条，导航栏下方） */
+/* 公告条 */
 .announce-bar {
   display: flex;
   align-items: center;
