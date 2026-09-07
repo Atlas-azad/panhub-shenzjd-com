@@ -48,7 +48,14 @@
           class="support-qr"
           @error="($event.target as HTMLImageElement).style.display='none'"
         />
-        <button class="support-btn" type="button" @click="closeSupportModal">下次一定</button>
+        <div class="support-actions">
+          <button class="support-btn" type="button" @click="closeSupportModal">下次一定</button>
+          <button class="support-btn support-btn--heart" type="button" @click="onSupportedClick">已支持❤️</button>
+        </div>
+        <!-- 爱心飘浮动画 -->
+        <Transition name="heart-float">
+          <div v-if="showHeartAnim" class="heart-anim">❤️</div>
+        </Transition>
       </div>
     </div>
   </Teleport>
@@ -82,6 +89,7 @@ onBeforeUnmount(() => {
  
 // ===== 自定义支持弹窗 =====
 const showSupportModal = ref(false);
+const showHeartAnim = ref(false);
  
 function onShowSupportModal() {
   showSupportModal.value = true;
@@ -89,6 +97,14 @@ function onShowSupportModal() {
  
 function closeSupportModal() {
   showSupportModal.value = false;
+}
+ 
+function onSupportedClick() {
+  showHeartAnim.value = true;
+  setTimeout(() => {
+    showHeartAnim.value = false;
+    closeSupportModal();
+  }, 800);
 }
  
 // ===== 公告条 =====
@@ -347,9 +363,13 @@ function dismissAnnouncement() {
   border-radius: 8px;
   object-fit: contain;
 }
+.support-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
 .support-btn {
-  display: inline-block;
-  padding: 8px 28px;
+  padding: 8px 24px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -361,6 +381,41 @@ function dismissAnnouncement() {
 .support-btn:hover {
   background: var(--bg-tertiary, #e5e7eb);
   color: var(--text-primary, #111827);
+}
+.support-btn--heart {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%) !important;
+  border-color: rgba(233, 30, 99, 0.15) !important;
+  color: #c2185b !important;
+}
+.support-btn--heart:hover {
+  background: linear-gradient(135deg, #f8bbd0 0%, #f48fb1 100%) !important;
+  color: #880e4f !important;
+}
+/* 爱心飘浮动画 */
+.heart-anim {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  pointer-events: none;
+  z-index: 10;
+}
+.heart-float-enter-active {
+  animation: heartPop 0.8s ease-out forwards;
+}
+.heart-float-leave-active {
+  animation: heartFade 0.3s ease-in forwards;
+}
+@keyframes heartPop {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  30% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -70%) scale(1.1); opacity: 0; }
+}
+@keyframes heartFade {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 @keyframes supportFadeIn {
   from { opacity: 0; }
