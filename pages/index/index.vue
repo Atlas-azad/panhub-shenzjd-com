@@ -306,8 +306,6 @@ async function onSearch() {
   }
   if (searchState.value.loading) return;
   // 微信公众号认证（强制：未认证先完成关注+验证码验证，成功后自动继续搜索）
-  const authed = await checkSearchAuth();
-  if (!authed) return;
   // 自愿支持弹窗：每搜索 3 次自愿弹出一次（fire-and-forget，不阻塞本次搜索）
   maybeShowUnlockAd();
   await doSearch();
