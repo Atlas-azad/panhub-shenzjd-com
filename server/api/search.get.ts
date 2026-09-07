@@ -36,10 +36,6 @@ export default defineEventHandler(async (event) => {
   // 微信关注公众号登录态校验（恒强制）：
   // - "ok"           → 放行
   // - "unauthorized" → 无凭证或凭证失效 → 401 触发前端重新引导关注
-  const wxAuth = await requireWxAuth(event);
-  if (wxAuth === "unauthorized") {
-    throw createError({ statusCode: 401, statusMessage: "wx auth required" });
-  }
   const config = useRuntimeConfig();
   // 确保频道配置已加载（幂等）
   await getChannelConfigService().ensureLoaded();
