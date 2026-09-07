@@ -75,7 +75,7 @@ export default defineNuxtConfig({
     cacheTtlMinutes: channelsConfig.cacheTtlMinutes,
     public: {
       apiBase: "/api",
-      siteUrl: "https://panhub.shenzjd.com",
+      siteUrl: "https://panhub.aihub.ren",
       // 微信认证写死强制（无开关）：认证统一收敛到 wx-auth 服务（唯一登录
       // 通道）。小程序 Bearer token 由 wx-auth /api/auth/mp-login 签发，
       // 网页端公众号 cookie 由 wx-auth-sdk 种下，panhub 只做转发校验
