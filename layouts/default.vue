@@ -67,6 +67,7 @@ useHead({
     {
       src: "https://unpkg.com/wx-auth-sdk/dist/wx-auth.umd.js",
       body: true,
+      async: true,
     },
     {
       innerHTML: `WxAuth.init({ silent: true, required: false })`,
