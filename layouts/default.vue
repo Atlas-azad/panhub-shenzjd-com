@@ -32,7 +32,7 @@
   <footer class="site-footer">
     <NuxtLink to="/privacy" class="footer-link">隐私政策</NuxtLink>
     <span class="footer-sep">·</span>
-    <span class="footer-copy">© {{ new Date().getFullYear() }} PanHub</span>
+    <span class="footer-copy">© {{ new Date().getFullYear() }} 胖虎网盘搜索</span>
   </footer>
  
   <!-- 自定义支持弹窗 -->
