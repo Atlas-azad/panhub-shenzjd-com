@@ -1,26 +1,20 @@
 <template>
   <div class="home">
     <!-- 英雄区域 + 热门搜索 -->
-    <div class="hero-row">
-      <div class="hero-noise" aria-hidden="true" />
+        <div class="hero-row">
       <header class="hero">
-        <div class="hero-accent" aria-hidden="true" />
-        <div class="hero-content">
-          <div class="hero-badge">胖虎 搜索聚合引擎</div>
-          <h1 class="hero-title">
-            <span class="hero-title-line">一键检索</span>
-            <span class="hero-title-line hero-title-line--accent">全网网盘资源</span>
-          </h1>
-          <p class="hero-description">
-            聚合阿里云盘、夸克、百度网盘、115、迅雷等平台 · 快速、直达、少打扰
-          </p>
-          <ul class="hero-features" role="list">
-            <li class="hero-feature">实时搜索</li>
-            <li class="hero-feature">多源聚合</li>
-            <li class="hero-feature">去重整理</li>
-          </ul>
+        <div class="hero-left">
+          <h1 class="hero-title">胖虎</h1>
+          <span class="hero-badge">聚合网盘搜索</span>
         </div>
-        <div class="hero-shape" aria-hidden="true" />
+        <p class="hero-description">
+          阿里云盘 · 夸克 · 百度网盘 · 115 · 迅雷等
+        </p>
+        <ul class="hero-features" role="list">
+          <li class="hero-feature">实时聚合</li>
+          <li class="hero-feature">多平台</li>
+          <li class="hero-feature">去重</li>
+        </ul>
       </header>
     </div>
 
@@ -179,29 +173,27 @@ onMounted(async () => {
 useSeoMeta({
   title: "胖虎 - 聚合网盘搜索",
   description:
-    "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
+    "胖虎：聚合阿里云盘、夸克、百度网盘、115、迅雷等平台的网盘搜索工具，实时检索分享资源，快速、高效。",
   ogTitle: "胖虎 - 聚合网盘搜索",
   ogDescription:
-    "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
+    "胖虎：聚合阿里云盘、夸克、百度网盘、115、迅雷等平台的网盘搜索工具，实时检索分享资源，快速、高效。",
   ogType: "website",
-  ogSiteName: "PanHub",
-  ogImage:
-    "https://cdn.jsdmirror.com/gh/wu529778790/img.shenzjd.com@master/blog/imgx-20260828-151509-5bk7.svg",
+  ogSiteName: "胖虎",
+  ogImage: "/favicon.svg",
   twitterCard: "summary_large_image",
   twitterTitle: "胖虎 - 聚合网盘搜索",
   twitterDescription:
-    "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
-  twitterImage:
-    "https://cdn.jsdmirror.com/gh/wu529778790/img.shenzjd.com@master/blog/imgx-20260828-151509-5bk7.svg",
+    "胖虎：聚合阿里云盘、夸克、百度网盘、115、迅雷等平台的网盘搜索工具，实时检索分享资源，快速、高效。",
+  twitterImage: "/favicon.svg",
 });
-
+ 
 useHead({
   link: [{ rel: "canonical", href: siteUrl ? `${siteUrl}/` : "/" }],
   meta: [
     {
       name: "keywords",
       content:
-        "网盘搜索, 阿里云盘搜索, 夸克网盘搜索, 百度网盘搜索, 115 网盘, 迅雷云盘, 资源搜索, 盘搜, PanHub",
+        "网盘搜索, 阿里云盘搜索, 夸克网盘搜索, 百度网盘搜索, 115 网盘, 迅雷云盘, 资源搜索, 盘搜, 胖虎",
     },
   ],
   script: [
@@ -210,7 +202,7 @@ useHead({
       innerHTML: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "WebSite",
-        name: "PanHub",
+        name: "胖虎",
         url: siteUrl || "",
         potentialAction: {
           "@type": "SearchAction",
@@ -412,152 +404,114 @@ function visibleSorted(items: any[]) {
 }
 
 /* 英雄区域 + 热门搜索（frontend-design: editorial + industrial） */
+/* 英雄区域 — 紧凑单行横幅 */
 .hero-row {
   display: flex;
-  align-items: stretch;
-  gap: 0;
-  position: relative;
-  background: linear-gradient(145deg, rgba(15, 118, 110, 0.12) 0%, rgba(15, 118, 110, 0.04) 35%, rgba(245, 158, 11, 0.06) 70%, rgba(15, 118, 110, 0.08) 100%);
-  border-radius: 20px;
-  box-shadow: 0 4px 20px -4px rgba(15, 118, 110, 0.15);
+  align-items: center;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 14px;
+  padding: 14px 20px;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
-
-.hero-noise {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-  z-index: 0;
-}
-
+ 
 .hero {
-  flex: 1;
-  min-width: 0;
-  padding: 24px 28px;
-  text-align: left;
-  position: relative;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
 }
-
-.hero-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 50%, var(--primary) 100%);
-  opacity: 1;
+ 
+.hero-left {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding-left: 12px;
-}
-
-.hero-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--primary);
-  margin-bottom: 10px;
-  padding: 6px 12px;
-  background: rgba(15, 118, 110, 0.12);
-  border: 1px solid rgba(15, 118, 110, 0.25);
-  border-radius: 8px;
-  font-family: "Manrope", sans-serif;
-  animation: heroReveal 0.6s ease-out both;
-  animation-delay: 0.05s;
-}
-
+ 
 .hero-title {
   font-family: "Syne", "Manrope", sans-serif;
-  font-size: 36px;
+  font-size: 22px;
   font-weight: 800;
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--text-primary);
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  max-width: 560px;
-  animation: heroReveal 0.6s ease-out both;
-  animation-delay: 0.12s;
-}
-
-.hero-title-line {
-  display: block;
-}
-
-.hero-title-line--accent {
+  letter-spacing: -0.03em;
+  line-height: 1;
   background: linear-gradient(120deg, var(--primary) 0%, #0d9488 40%, var(--secondary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
-.hero-description {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin: 0 0 16px;
-  line-height: 1.65;
-  max-width: 520px;
-  animation: heroReveal 0.6s ease-out both;
-  animation-delay: 0.2s;
+ 
+.hero-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--primary);
+  padding: 3px 10px;
+  background: rgba(15, 118, 110, 0.08);
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 6px;
+  white-space: nowrap;
 }
-
+ 
+.hero-description {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+ 
 .hero-features {
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px 20px;
+  gap: 8px;
 }
-
+ 
 .hero-feature {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--primary-dark);
-  padding: 6px 12px;
+  padding: 3px 10px;
   background: var(--bg-input);
-  border: 1px solid rgba(15, 118, 110, 0.2);
-  border-radius: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  animation: heroReveal 0.6s ease-out both;
+  border: 1px solid rgba(15, 118, 110, 0.15);
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-.hero-feature:nth-child(1) { animation-delay: 0.28s; }
-.hero-feature:nth-child(2) { animation-delay: 0.34s; }
-.hero-feature:nth-child(3) { animation-delay: 0.4s; }
-
+ 
 .hero-feature:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.15);
-  border-color: rgba(15, 118, 110, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(15, 118, 110, 0.12);
 }
 
-.hero-shape {
-  position: absolute;
-  right: 8%;
-  bottom: 10%;
-  width: 120px;
-  height: 120px;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  filter: blur(24px);
-  pointer-events: none;
-  z-index: 0;
+@media (max-width: 640px) {
+  .hero-row {
+    padding: 12px 14px;
+  }
+  .hero {
+    gap: 10px;
+  }
+  .hero-title {
+    font-size: 18px;
+  }
+  .hero-description {
+    display: none;
+  }
+  .hero-features {
+    margin-left: 0;
+  }
 }
-
+  
 @keyframes heroReveal {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
