@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import channelsConfig from "./config/channels.json";
-
+ 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
@@ -10,8 +10,8 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { lang: "zh-CN" },
-      title: "PanHub · 全网最全的网盘搜索",
-      titleTemplate: "%s · PanHub",
+      title: "胖虎 · 聚合网盘搜索",
+      titleTemplate: "%s · 胖虎",
       meta: [
         {
           name: "viewport",
@@ -21,16 +21,16 @@ export default defineNuxtConfig({
         {
           name: "description",
           content:
-            "PanHub：聚合阿里云盘、夸克、百度网盘、115、迅雷等平台的全网最全网盘搜索工具，实时检索分享资源，快速、高效。",
+            "胖虎：聚合阿里云盘、夸克、百度网盘、115、迅雷等平台的网盘搜索工具，实时检索分享资源，快速、高效。",
         },
         {
           name: "keywords",
           content:
-            "网盘搜索, 阿里云盘, 夸克, 百度网盘, 115, 迅雷, 资源搜索, 盘搜, panhub, 网盘聚合搜索",
+            "网盘搜索, 阿里云盘, 夸克, 百度网盘, 115, 迅雷, 资源搜索, 盘搜, 胖虎, 网盘聚合搜索",
         },
         { name: "theme-color", content: "#111111" },
         { property: "og:type", content: "website" },
-        { property: "og:site_name", content: "PanHub" },
+        { property: "og:site_name", content: "胖虎" },
       ],
       link: [
         {
@@ -75,11 +75,7 @@ export default defineNuxtConfig({
     cacheTtlMinutes: channelsConfig.cacheTtlMinutes,
     public: {
       apiBase: "/api",
-      siteUrl: "https://panhub.aihub.ren",
-      // 微信认证写死强制（无开关）：认证统一收敛到 wx-auth 服务（唯一登录
-      // 通道）。小程序 Bearer token 由 wx-auth /api/auth/mp-login 签发，
-      // 网页端公众号 cookie 由 wx-auth-sdk 种下，panhub 只做转发校验
-      // （server/utils/wxAuthCheck.ts），不持有微信密钥/自建登录。
+      siteUrl: "https://panhub.shenzjd.com",
     },
   },
 });
