@@ -491,8 +491,8 @@ function visibleSorted(items: any[]) {
 }
  
 .hero-logo {
-  width: 44px;
-  height: 44px;
+  width: 64px;
+  height: 64px;
   border-radius: 12px;
   flex-shrink: 0;
 }
