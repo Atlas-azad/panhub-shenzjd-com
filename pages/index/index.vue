@@ -425,26 +425,79 @@ function visibleSorted(items: any[]) {
   gap: 20px;
 }
  
-/* ====== 英雄区域 — 居中大字 ====== */
+/* ====== 英雄区域 ====== */
 .hero-row {
+  position: relative;
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: 18px;
-  padding: 40px 32px 32px;
+  padding: 36px 32px 28px;
   text-align: center;
   box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+ 
+/* 装饰光斑 */
+.hero-deco {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-deco--left {
+  top: -60px;
+  left: -40px;
+  background: radial-gradient(circle, rgba(26, 122, 109, 0.08) 0%, transparent 70%);
+}
+.hero-deco--right {
+  bottom: -50px;
+  right: -30px;
+  background: radial-gradient(circle, rgba(212, 146, 10, 0.06) 0%, transparent 70%);
+}
+ 
+/* 装饰网格 */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.3;
+  background-image:
+    linear-gradient(var(--border-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 70% at 50% 50%, black 30%, transparent 70%);
 }
  
 .hero {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+}
+ 
+/* 品牌行：logo + 标题 */
+.hero-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+ 
+.hero-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
  
 .hero-title {
   font-family: "Syne", "Inter", sans-serif;
-  font-size: 42px;
+  font-size: 40px;
   font-weight: 800;
   margin: 0;
   letter-spacing: -0.04em;
@@ -457,35 +510,96 @@ function visibleSorted(items: any[]) {
  
 .hero-tagline {
   margin: 0;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-secondary);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
   letter-spacing: 0.02em;
 }
  
+.hero-desc {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  max-width: 480px;
+}
+ 
+/* 平台药丸 */
 .hero-platforms {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 4px;
 }
  
 .hero-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-tertiary);
-  padding: 4px 12px;
+  color: var(--text-secondary);
+  padding: 5px 12px 5px 8px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   border-radius: 999px;
   transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+ 
+.hero-platform-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 3px;
+  flex-shrink: 0;
 }
  
 .hero-platform:hover {
   color: var(--primary);
   border-color: rgba(26, 122, 109, 0.2);
   background: rgba(26, 122, 109, 0.04);
+  transform: translateY(-1px);
+}
+ 
+/* 底部统计条 */
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 6px;
+  padding: 10px 24px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+ 
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+ 
+.hero-stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+ 
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+ 
+.hero-stat-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border-medium);
 }
  
 @keyframes heroReveal {
@@ -698,10 +812,17 @@ function visibleSorted(items: any[]) {
  
 /* 移动端 */
 @media (max-width: 640px) {
-  .hero-row { padding: 28px 20px 24px; }
-  .hero-title { font-size: 32px; }
-  .hero-tagline { font-size: 13px; }
-  .hero-platform { font-size: 11px; padding: 3px 10px; }
+  .hero-row { padding: 24px 18px 20px; }
+  .hero-brand { gap: 10px; }
+  .hero-logo { width: 36px; height: 36px; border-radius: 10px; }
+  .hero-title { font-size: 28px; }
+  .hero-tagline { font-size: 14px; }
+  .hero-desc { font-size: 12px; max-width: 100%; }
+  .hero-platform { font-size: 11px; padding: 4px 10px 4px 6px; }
+  .hero-platform-icon { width: 14px; height: 14px; }
+  .hero-stats { gap: 10px; padding: 8px 16px; }
+  .hero-stat-value { font-size: 14px; }
+  .hero-stat-label { font-size: 10px; }
  
   .stats-bar { padding: 12px; }
   .stats-main { gap: 8px; }
