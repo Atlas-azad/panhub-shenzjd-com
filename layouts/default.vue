@@ -205,24 +205,30 @@ function dismissAnnouncement() {
 </script>
  
 <style scoped>
-/* 公告条 */
+/* 主内容区 — 居中限宽 */
+.main {
+  max-width: 940px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+ 
+/* 公告条 — 柔和细线 */
 .announce-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  padding: 7px 16px;
-  background: linear-gradient(90deg, rgba(15, 118, 110, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
-  border-bottom: 1px solid rgba(15, 118, 110, 0.12);
+  padding: 8px 20px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
   font-size: 13px;
-  color: var(--text-secondary, #4b5563);
+  color: var(--text-secondary);
   line-height: 1.5;
   animation: barSlideIn 0.3s ease;
 }
-.announce-bar__icon {
-  flex-shrink: 0;
-}
+.announce-bar__icon { flex-shrink: 0; }
 .announce-bar__viewport {
   flex: 0 1 auto;
   min-width: 0;
@@ -240,8 +246,13 @@ function dismissAnnouncement() {
   white-space: nowrap;
 }
 .announce-bar__text a {
-  color: var(--primary, #0f766e);
-  text-decoration: underline;
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(10, 110, 92, 0.3);
+  transition: border-color var(--transition-fast);
+}
+.announce-bar__text a:hover {
+  border-color: var(--primary);
 }
 .announce-bar__text--scrolling {
   animation: announceBounce var(--announce-scroll-duration, 12s) ease-in-out infinite alternate;
@@ -250,119 +261,105 @@ function dismissAnnouncement() {
 .announce-bar__viewport:hover .announce-bar__text--scrolling {
   animation-play-state: paused;
 }
-.announce-bar__text strong {
-  color: var(--primary, #0f766e);
-}
+.announce-bar__text strong { color: var(--primary); }
 .announce-bar__close {
   flex-shrink: 0;
   background: none;
   border: none;
-  font-size: 14px;
-  color: var(--text-tertiary, #9ca3af);
+  font-size: 13px;
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 0 4px;
   line-height: 1;
+  transition: color var(--transition-fast);
 }
-.announce-bar__close:hover {
-  color: var(--text-secondary, #4b5563);
-}
+.announce-bar__close:hover { color: var(--text-secondary); }
+ 
 @keyframes barSlideIn {
-  from {
-    transform: translateY(-4px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(-4px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 @keyframes announceBounce {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(var(--announce-scroll-distance, -100px));
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--announce-scroll-distance, -100px)); }
 }
  
-/* 页脚 */
+/* 页脚 — 极简 */
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 18px 16px 28px;
-  font-size: 13px;
-  color: var(--text-tertiary, #9ca3af);
+  padding: 32px 16px 40px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
 }
 .footer-link {
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-tertiary);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
-.footer-link:hover {
-  color: var(--accent, #2563eb);
-}
-.footer-sep {
-  opacity: 0.5;
-}
+.footer-link:hover { color: var(--primary); }
+.footer-sep { opacity: 0.4; }
  
 /* ===== 自定义支持弹窗 ===== */
 .support-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   animation: supportFadeIn 0.25s ease;
 }
 .support-modal {
-  background: var(--bg-glass, #ffffff);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border, rgba(0,0,0,0.08));
-  border-radius: 16px;
-  padding: 32px 28px 24px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 36px 32px 28px;
   text-align: center;
-  max-width: 320px;
+  max-width: 340px;
   width: 90vw;
   position: relative;
+  box-shadow: var(--shadow-xl);
   animation: supportSlideIn 0.3s ease;
 }
 .support-close {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 14px;
+  right: 16px;
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 16px;
   cursor: pointer;
-  color: var(--text-tertiary, #9ca3af);
+  color: var(--text-tertiary);
   line-height: 1;
-  transition: color 0.15s;
+  transition: color var(--transition-fast);
 }
-.support-close:hover {
-  color: var(--text-secondary, #4b5563);
-}
+.support-close:hover { color: var(--text-secondary); }
 .support-title {
   margin: 0 0 8px;
   font-size: 18px;
-  font-weight: 600;
-  color: var(--text-primary, #111827);
+  font-weight: 700;
+  color: var(--text-primary);
 }
 .support-desc {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   font-size: 14px;
-  color: var(--text-secondary, #6b7280);
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 .support-qr {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 16px;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 18px;
   display: block;
-  border-radius: 8px;
+  border-radius: 12px;
   object-fit: contain;
+  border: 1px solid var(--border-light);
 }
 .support-actions {
   display: flex;
@@ -370,29 +367,30 @@ function dismissAnnouncement() {
   gap: 12px;
 }
 .support-btn {
-  padding: 8px 24px;
-  border-radius: 8px;
+  padding: 9px 24px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 14px;
-  background: var(--bg-secondary, #f3f4f6);
-  border: 1px solid var(--border, rgba(0,0,0,0.08));
-  color: var(--text-secondary, #6b7280);
-  transition: all 0.15s;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
 }
 .support-btn:hover {
-  background: var(--bg-tertiary, #e5e7eb);
-  color: var(--text-primary, #111827);
+  background: var(--bg-primary);
+  border-color: var(--border-medium);
+  color: var(--text-primary);
 }
 .support-btn--heart {
-  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%) !important;
-  border-color: rgba(233, 30, 99, 0.15) !important;
-  color: #c2185b !important;
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
+  border-color: rgba(220, 38, 38, 0.12) !important;
+  color: #b91c1c !important;
 }
 .support-btn--heart:hover {
-  background: linear-gradient(135deg, #f8bbd0 0%, #f48fb1 100%) !important;
-  color: #880e4f !important;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+  color: #991b1b !important;
 }
-/* 爱心飘浮动画 */
 .heart-anim {
   position: absolute;
   top: 40%;
@@ -402,12 +400,8 @@ function dismissAnnouncement() {
   pointer-events: none;
   z-index: 10;
 }
-.heart-float-enter-active {
-  animation: heartPop 0.8s ease-out forwards;
-}
-.heart-float-leave-active {
-  animation: heartFade 0.3s ease-in forwards;
-}
+.heart-float-enter-active { animation: heartPop 0.8s ease-out forwards; }
+.heart-float-leave-active { animation: heartFade 0.3s ease-in forwards; }
 @keyframes heartPop {
   0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
   30% { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
@@ -425,18 +419,5 @@ function dismissAnnouncement() {
 @keyframes supportSlideIn {
   from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
-}
-
-  /* 主内容区居中限宽 */
-.main {
-  max-width: 920px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-}
- 
-/* 页脚间距加大 */
-.site-footer {
-  padding: 24px 16px 32px;
 }
 </style>
