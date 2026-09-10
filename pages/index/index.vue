@@ -6,7 +6,7 @@
       <header class="hero">
         <div class="hero-accent" aria-hidden="true" />
         <div class="hero-content">
-          <div class="hero-badge">PanHub 搜索聚合引擎</div>
+          <div class="hero-badge">胖虎 搜索聚合引擎</div>
           <h1 class="hero-title">
             <span class="hero-title-line">一键检索</span>
             <span class="hero-title-line hero-title-line--accent">全网网盘资源</span>
@@ -15,9 +15,9 @@
             聚合阿里云盘、夸克、百度网盘、115、迅雷等平台 · 快速、直达、少打扰
           </p>
           <ul class="hero-features" role="list">
-            <li class="hero-feature">实时聚合</li>
-            <li class="hero-feature">多平台覆盖</li>
-            <li class="hero-feature">结果去重</li>
+            <li class="hero-feature">实时搜索</li>
+            <li class="hero-feature">多源聚合</li>
+            <li class="hero-feature">去重整理</li>
           </ul>
         </div>
         <div class="hero-shape" aria-hidden="true" />
@@ -177,10 +177,10 @@ onMounted(async () => {
 
 // SEO 元数据
 useSeoMeta({
-  title: "PanHub - 全网最全的网盘搜索",
+  title: "胖虎 - 聚合网盘搜索",
   description:
     "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
-  ogTitle: "PanHub - 全网最全的网盘搜索",
+  ogTitle: "胖虎 - 聚合网盘搜索",
   ogDescription:
     "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
   ogType: "website",
@@ -188,7 +188,7 @@ useSeoMeta({
   ogImage:
     "https://cdn.jsdmirror.com/gh/wu529778790/img.shenzjd.com@master/blog/imgx-20260828-151509-5bk7.svg",
   twitterCard: "summary_large_image",
-  twitterTitle: "PanHub - 全网最全的网盘搜索",
+  twitterTitle: "胖虎 - 聚合网盘搜索",
   twitterDescription:
     "聚合阿里云盘、夸克、百度网盘、115、迅雷等平台，实时检索各类分享链接与资源，快速、高效。",
   twitterImage:
