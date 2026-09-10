@@ -205,22 +205,22 @@ function dismissAnnouncement() {
 </script>
  
 <style scoped>
-/* 主内容区 — 居中限宽 */
+/* 主内容区 */
 .main {
-  max-width: 940px;
+  max-width: 880px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 24px;
 }
  
-/* 公告条 — 柔和细线 */
+/* 公告条 */
 .announce-bar {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  padding: 8px 20px;
+  padding: 7px 20px;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-light);
   font-size: 13px;
@@ -248,25 +248,21 @@ function dismissAnnouncement() {
 .announce-bar__text a {
   color: var(--primary);
   text-decoration: none;
-  border-bottom: 1px solid rgba(10, 110, 92, 0.3);
+  border-bottom: 1px solid rgba(26, 122, 109, 0.25);
   transition: border-color var(--transition-fast);
 }
-.announce-bar__text a:hover {
-  border-color: var(--primary);
-}
+.announce-bar__text a:hover { border-color: var(--primary); }
 .announce-bar__text--scrolling {
   animation: announceBounce var(--announce-scroll-duration, 12s) ease-in-out infinite alternate;
   will-change: transform;
 }
-.announce-bar__viewport:hover .announce-bar__text--scrolling {
-  animation-play-state: paused;
-}
+.announce-bar__viewport:hover .announce-bar__text--scrolling { animation-play-state: paused; }
 .announce-bar__text strong { color: var(--primary); }
 .announce-bar__close {
   flex-shrink: 0;
   background: none;
   border: none;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-tertiary);
   cursor: pointer;
   padding: 0 4px;
@@ -284,13 +280,13 @@ function dismissAnnouncement() {
   to { transform: translateX(var(--announce-scroll-distance, -100px)); }
 }
  
-/* 页脚 — 极简 */
+/* 页脚 */
 .site-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 32px 16px 40px;
+  padding: 28px 16px 36px;
   font-size: 12px;
   color: var(--text-tertiary);
   letter-spacing: 0.01em;
@@ -301,15 +297,15 @@ function dismissAnnouncement() {
   transition: color var(--transition-fast);
 }
 .footer-link:hover { color: var(--primary); }
-.footer-sep { opacity: 0.4; }
+.footer-sep { opacity: 0.35; }
  
 /* ===== 自定义支持弹窗 ===== */
 .support-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,10 +314,10 @@ function dismissAnnouncement() {
 .support-modal {
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
-  border-radius: 20px;
-  padding: 36px 32px 28px;
+  border-radius: 18px;
+  padding: 32px 28px 24px;
   text-align: center;
-  max-width: 340px;
+  max-width: 320px;
   width: 90vw;
   position: relative;
   box-shadow: var(--shadow-xl);
@@ -329,11 +325,11 @@ function dismissAnnouncement() {
 }
 .support-close {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 12px;
+  right: 14px;
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
   color: var(--text-tertiary);
   line-height: 1;
@@ -342,20 +338,20 @@ function dismissAnnouncement() {
 .support-close:hover { color: var(--text-secondary); }
 .support-title {
   margin: 0 0 8px;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
 }
 .support-desc {
-  margin: 0 0 18px;
-  font-size: 14px;
+  margin: 0 0 16px;
+  font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
 .support-qr {
   width: 180px;
   height: 180px;
-  margin: 0 auto 18px;
+  margin: 0 auto 16px;
   display: block;
   border-radius: 12px;
   object-fit: contain;
@@ -364,10 +360,10 @@ function dismissAnnouncement() {
 .support-actions {
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
 }
 .support-btn {
-  padding: 9px 24px;
+  padding: 8px 22px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 13px;
@@ -384,7 +380,7 @@ function dismissAnnouncement() {
 }
 .support-btn--heart {
   background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
-  border-color: rgba(220, 38, 38, 0.12) !important;
+  border-color: rgba(220, 38, 38, 0.1) !important;
   color: #b91c1c !important;
 }
 .support-btn--heart:hover {
