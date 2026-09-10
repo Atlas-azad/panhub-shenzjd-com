@@ -1,21 +1,18 @@
 <template>
   <div class="home">
     <!-- 英雄区域 + 热门搜索 -->
-           <div class="hero-row">
+         <div class="hero-row">
       <header class="hero">
-        <div class="hero-left">
-          <h1 class="hero-title">胖虎</h1>
-          <span class="hero-divider"></span>
-          <span class="hero-subtitle">聚合网盘搜索</span>
+        <h1 class="hero-title">胖虎</h1>
+        <p class="hero-tagline">全网网盘资源 · 聚合搜索引擎</p>
+        <div class="hero-platforms">
+          <span class="hero-platform">阿里云盘</span>
+          <span class="hero-platform">夸克</span>
+          <span class="hero-platform">百度网盘</span>
+          <span class="hero-platform">115</span>
+          <span class="hero-platform">迅雷</span>
+          <span class="hero-platform">更多</span>
         </div>
-        <p class="hero-description">
-          阿里云盘 · 夸克 · 百度网盘 · 115 · 迅雷
-        </p>
-        <ul class="hero-features" role="list">
-          <li class="hero-feature">实时聚合</li>
-          <li class="hero-feature">多平台覆盖</li>
-          <li class="hero-feature">结果去重</li>
-        </ul>
       </header>
     </div>
 
@@ -401,94 +398,70 @@ function visibleSorted(items: any[]) {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
  
-/* 英雄区域 — 优雅单行 */
+/* ====== 英雄区域 — 居中大字 ====== */
 .hero-row {
-  display: flex;
-  align-items: center;
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
-  border-radius: 14px;
-  padding: 18px 28px;
-  gap: 20px;
+  border-radius: 18px;
+  padding: 40px 32px 32px;
+  text-align: center;
   box-shadow: var(--shadow-md);
 }
  
 .hero {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  width: 100%;
-}
- 
-.hero-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
  
 .hero-title {
-  font-family: "Syne", "Manrope", sans-serif;
-  font-size: 26px;
+  font-family: "Syne", "Inter", sans-serif;
+  font-size: 42px;
   font-weight: 800;
   margin: 0;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1;
-  background: linear-gradient(135deg, #0a6e5c 0%, #0d9488 45%, #c2740e 100%);
+  background: linear-gradient(135deg, #1a7a6d 0%, #2dd4bf 40%, #d4920a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
  
-.hero-divider {
-  width: 1px;
-  height: 20px;
-  background: var(--border-light);
-}
- 
-.hero-subtitle {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-}
- 
-.hero-description {
-  font-size: 13px;
-  color: var(--text-tertiary);
+.hero-tagline {
   margin: 0;
-  line-height: 1;
-  white-space: nowrap;
-}
- 
-.hero-features {
-  list-style: none;
-  margin: 0 0 0 auto;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-}
- 
-.hero-feature {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
   letter-spacing: 0.02em;
-  color: var(--primary-dark);
-  padding: 4px 11px;
-  background: rgba(10, 110, 92, 0.04);
-  border: 1px solid rgba(10, 110, 92, 0.1);
-  border-radius: 6px;
-  white-space: nowrap;
+}
+ 
+.hero-platforms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+ 
+.hero-platform {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  padding: 4px 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 999px;
   transition: all var(--transition-fast);
 }
  
-.hero-feature:hover {
-  background: rgba(10, 110, 92, 0.08);
-  border-color: rgba(10, 110, 92, 0.2);
-  transform: translateY(-1px);
+.hero-platform:hover {
+  color: var(--primary);
+  border-color: rgba(26, 122, 109, 0.2);
+  background: rgba(26, 122, 109, 0.04);
 }
  
 @keyframes heroReveal {
@@ -496,12 +469,12 @@ function visibleSorted(items: any[]) {
   to { opacity: 1; transform: translateY(0); }
 }
  
-/* 统计和过滤器栏 */
+/* ====== 统计和过滤器栏 ====== */
 .stats-bar {
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 18px 22px;
+  padding: 16px 20px;
   box-shadow: var(--shadow-sm);
   animation: fadeIn 0.4s ease;
 }
@@ -509,13 +482,13 @@ function visibleSorted(items: any[]) {
 .stats-content {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
  
 .stats-main {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
  
@@ -523,7 +496,7 @@ function visibleSorted(items: any[]) {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 6px 12px;
   background: var(--bg-secondary);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
@@ -536,7 +509,7 @@ function visibleSorted(items: any[]) {
 }
  
 .stat-value {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--primary);
 }
@@ -546,22 +519,22 @@ function visibleSorted(items: any[]) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  background: rgba(10, 110, 92, 0.06);
+  padding: 6px 12px;
+  background: rgba(26, 122, 109, 0.05);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(10, 110, 92, 0.12);
+  border: 1px solid rgba(26, 122, 109, 0.1);
 }
  
 .pulse-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   background: var(--primary);
   border-radius: 50%;
   animation: pulse 1.5s ease-in-out infinite;
 }
  
 .loading-text {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--primary);
   font-weight: 500;
 }
@@ -571,31 +544,31 @@ function visibleSorted(items: any[]) {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
-  background: rgba(194, 116, 14, 0.06);
+  padding: 6px 12px;
+  background: rgba(212, 146, 10, 0.05);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(194, 116, 14, 0.15);
-  color: #b45309;
+  border: 1px solid rgba(212, 146, 10, 0.12);
+  color: #a16207;
   font-weight: 500;
 }
  
-.pause-icon { font-size: 13px; }
-.paused-text { font-size: 13px; }
+.pause-icon { font-size: 12px; }
+.paused-text { font-size: 12px; }
  
 /* 平台过滤器 */
 .platform-filters {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   align-items: center;
 }
  
 .filter-pill {
-  padding: 6px 14px;
+  padding: 5px 12px;
   border: 1px solid var(--border-light);
   background: var(--bg-primary);
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
   cursor: pointer;
@@ -612,7 +585,7 @@ function visibleSorted(items: any[]) {
   background: var(--primary);
   color: white;
   border-color: transparent;
-  box-shadow: 0 3px 12px rgba(10, 110, 92, 0.22);
+  box-shadow: 0 2px 10px rgba(26, 122, 109, 0.2);
 }
  
 /* 搜索结果区域 */
@@ -623,14 +596,14 @@ function visibleSorted(items: any[]) {
 .results-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 16px;
 }
  
 /* 空状态 */
 .empty-state {
   display: flex;
   justify-content: center;
-  padding: 36px 0;
+  padding: 32px 0;
   animation: fadeIn 0.4s ease;
 }
  
@@ -639,27 +612,27 @@ function visibleSorted(items: any[]) {
   background: var(--bg-primary);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-xl);
-  padding: 48px 52px;
+  padding: 40px 44px;
   box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 32px;
   flex-wrap: wrap;
 }
  
 .empty-card__main {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   min-width: 280px;
   flex: 1 1 320px;
 }
  
 .empty-icon {
   flex-shrink: 0;
-  width: 80px;
-  height: 80px;
-  border-radius: 20px;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -669,15 +642,15 @@ function visibleSorted(items: any[]) {
 }
  
 .empty-card__text h3 {
-  margin: 0 0 6px 0;
-  font-size: 20px;
+  margin: 0 0 4px 0;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
 }
  
 .empty-card__text p {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -686,68 +659,55 @@ function visibleSorted(items: any[]) {
 .error-alert {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(220, 38, 38, 0.06);
-  border: 1px solid rgba(220, 38, 38, 0.15);
+  gap: 8px;
+  background: rgba(220, 38, 38, 0.04);
+  border: 1px solid rgba(220, 38, 38, 0.12);
   border-radius: var(--radius-md);
-  padding: 12px 18px;
+  padding: 10px 16px;
   color: var(--error);
   font-weight: 500;
+  font-size: 13px;
   animation: fadeIn 0.3s ease;
 }
  
-.error-icon { font-size: 16px; }
+.error-icon { font-size: 14px; }
  
-/* 移动端优化 */
+/* 移动端 */
 @media (max-width: 640px) {
-  .hero-row { padding: 14px 16px; }
-  .hero { gap: 12px; }
-  .hero-left { gap: 10px; }
-  .hero-title { font-size: 20px; }
-  .hero-divider { height: 16px; }
-  .hero-subtitle { font-size: 12px; }
-  .hero-description { display: none; }
-  .hero-features { margin-left: 0; }
+  .hero-row { padding: 28px 20px 24px; }
+  .hero-title { font-size: 32px; }
+  .hero-tagline { font-size: 13px; }
+  .hero-platform { font-size: 11px; padding: 3px 10px; }
  
-  .stats-bar { padding: 14px; }
+  .stats-bar { padding: 12px; }
   .stats-main { gap: 8px; }
-  .stat-item { padding: 6px 10px; }
-  .stat-value { font-size: 16px; }
-  .platform-filters { gap: 6px; }
-  .filter-pill { padding: 5px 10px; font-size: 12px; }
+  .stat-item { padding: 5px 10px; }
+  .stat-value { font-size: 15px; }
+  .platform-filters { gap: 5px; }
+  .filter-pill { padding: 4px 10px; font-size: 11px; }
  
-  .empty-card { padding: 28px 20px; flex-direction: column; align-items: flex-start; gap: 20px; }
-  .empty-card__main { min-width: 0; width: 100%; gap: 16px; }
-  .empty-icon { width: 56px; height: 56px; border-radius: 16px; }
-  .empty-icon svg { width: 32px; height: 32px; }
-  .empty-card h3 { font-size: 17px; }
+  .empty-card { padding: 24px 18px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .empty-card__main { min-width: 0; width: 100%; gap: 14px; }
+  .empty-icon { width: 52px; height: 52px; border-radius: 14px; }
+  .empty-icon svg { width: 28px; height: 28px; }
+  .empty-card h3 { font-size: 16px; }
 }
  
-/* 高对比度模式支持 */
+/* 高对比度 */
 @media (prefers-contrast: high) {
   .hero-title {
     -webkit-text-fill-color: var(--primary);
     background: none;
   }
-  .hero-feature { border-width: 2px; }
+  .hero-platform { border-width: 2px; }
   .filter-pill.active { border-width: 2px; }
 }
  
-/* 减少动画模式支持 */
+/* 减少动画 */
 @media (prefers-reduced-motion: reduce) {
-  .hero-title,
-  .hero-description,
-  .hero-feature {
-    animation: none;
-  }
-  .hero-feature:hover { transform: none; }
-  .hero,
-  .stats-bar,
-  .results-section,
-  .empty-state,
-  .error-alert {
-    animation: none;
-  }
+  .hero-title, .hero-tagline, .hero-platform { animation: none; }
+  .hero-platform:hover { transform: none; }
+  .hero, .stats-bar, .results-section, .empty-state, .error-alert { animation: none; }
   .filter-pill:hover { transform: none; }
   .pulse-dot { animation: none; opacity: 0.7; }
 }
