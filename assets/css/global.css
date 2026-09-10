@@ -1,60 +1,55 @@
-/* 全局样式 — 温润质感版 */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Syne:wght@600;700;800&display=swap");
+/* 全局样式 — Arctic Slate 质感版 */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Syne:wght@700;800&display=swap");
  
 @layer base {
 :root {
   color-scheme: light;
  
-  /* 主色：沉稳墨绿，有底气 */
-  --primary: #0a6e5c;
-  --primary-dark: #064e40;
-  --secondary: #c2740e;
+  --primary: #1a7a6d;
+  --primary-dark: #0f5b50;
+  --secondary: #d4920a;
   --success: #059669;
   --warning: #d97706;
   --error: #dc2626;
  
-  /* 背景：温润奶白，不花哨 */
   --bg-primary: #ffffff;
-  --bg-secondary: #f6f4f0;
-  --bg-glass: rgba(255, 255, 255, 0.92);
-  --bg-body: #f2f0ec;
-  --bg-glass-strong: rgba(255, 255, 255, 0.97);
+  --bg-secondary: #f4f4f5;
+  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-body: #ededee;
+  --bg-glass-strong: rgba(255, 255, 255, 0.96);
   --bg-surface: rgba(255, 255, 255, 0.78);
   --bg-surface-elevated: rgba(255, 255, 255, 0.65);
   --bg-surface-subtle: rgba(255, 255, 255, 0.35);
-  --bg-input: rgba(255, 255, 255, 0.55);
-  --bg-hover: rgba(10, 110, 92, 0.04);
-  --bg-active: rgba(10, 110, 92, 0.07);
-  --bg-skeleton: #eceae5;
+  --bg-input: rgba(255, 255, 255, 0.6);
+  --bg-hover: rgba(26, 122, 109, 0.05);
+  --bg-active: rgba(26, 122, 109, 0.08);
+  --bg-skeleton: #e4e4e6;
   --bg-skeleton-shine: rgba(255, 255, 255, 0.7);
  
-  /* 文字 */
-  --text-primary: #1a1a1a;
-  --text-secondary: #525252;
-  --text-tertiary: #8c8c8c;
+  --text-primary: #18181b;
+  --text-secondary: #52525b;
+  --text-tertiary: #a1a1aa;
   --text-on-primary: #ffffff;
   --text-on-warning: #ffffff;
   --text-on-success: #ffffff;
   --text-on-danger: #ffffff;
  
-  /* 边框：暖灰 */
-  --border-light: #e6e2db;
-  --border-medium: #d1ccc2;
-  --border-glass: rgba(255, 255, 255, 0.35);
-  --bg-btn: rgba(255, 255, 255, 0.5);
-  --bg-btn-hover: rgba(255, 255, 255, 0.8);
+  --border-light: #e4e4e7;
+  --border-medium: #d4d4d8;
+  --border-glass: rgba(255, 255, 255, 0.4);
+  --bg-btn: rgba(255, 255, 255, 0.55);
+  --bg-btn-hover: rgba(255, 255, 255, 0.85);
  
-  /* 阴影：温调柔光 */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.07);
-  --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.07);
+  --shadow-xl: 0 20px 44px rgba(0, 0, 0, 0.08);
  
-  --primary-glow: rgba(10, 110, 92, 0.18);
-  --warning-glow: rgba(194, 116, 14, 0.18);
-  --success-glow: rgba(5, 150, 105, 0.18);
-  --danger-glow: rgba(220, 38, 38, 0.18);
-  --accent-glow: rgba(194, 116, 14, 0.18);
+  --primary-glow: rgba(26, 122, 109, 0.15);
+  --warning-glow: rgba(212, 146, 10, 0.15);
+  --success-glow: rgba(5, 150, 105, 0.15);
+  --danger-glow: rgba(220, 38, 38, 0.15);
+  --accent-glow: rgba(212, 146, 10, 0.15);
  
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -72,7 +67,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Manrope", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: "Inter", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   background: var(--bg-body);
   color: var(--text-primary);
   height: 100%;
@@ -83,10 +78,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
  
-::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ccc8c0; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
+::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
  
 input[type="text"], input[type="search"], input[type="email"],
 input[type="password"], input[type="number"], textarea, select {
