@@ -1,17 +1,41 @@
 <template>
   <div class="home">
     <!-- 英雄区域 + 热门搜索 -->
-         <div class="hero-row">
+           <div class="hero-row">
+      <div class="hero-deco hero-deco--left" aria-hidden="true"></div>
+      <div class="hero-deco hero-deco--right" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
       <header class="hero">
-        <h1 class="hero-title">胖虎</h1>
-        <p class="hero-tagline">全网网盘资源 · 聚合搜索引擎</p>
+        <div class="hero-brand">
+          <img class="hero-logo" src="/favicon.svg" alt="胖虎" />
+          <h1 class="hero-title">胖虎</h1>
+        </div>
+        <p class="hero-tagline">全网网盘资源聚合搜索引擎</p>
+        <p class="hero-desc">一键检索阿里云盘、夸克、百度网盘、115、迅雷等平台的分享资源，实时聚合、去重整理，直达你想要的内容</p>
         <div class="hero-platforms">
-          <span class="hero-platform">阿里云盘</span>
-          <span class="hero-platform">夸克</span>
-          <span class="hero-platform">百度网盘</span>
-          <span class="hero-platform">115</span>
-          <span class="hero-platform">迅雷</span>
-          <span class="hero-platform">更多</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/aliyun.png" alt="" />阿里云盘</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/quark.png" alt="" />夸克</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/baidu.png" alt="" />百度网盘</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/115.png" alt="" />115</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/xunlei.png" alt="" />迅雷</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/tianyi.png" alt="" />天翼</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/uc.png" alt="" />UC</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-value">9+</span>
+            <span class="hero-stat-label">网盘平台</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">实时</span>
+            <span class="hero-stat-label">聚合检索</span>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">去重</span>
+            <span class="hero-stat-label">智能整理</span>
+          </div>
         </div>
       </header>
     </div>
