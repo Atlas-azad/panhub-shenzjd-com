@@ -426,4 +426,17 @@ function dismissAnnouncement() {
   from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+  /* 主内容区居中限宽 */
+.main {
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+ 
+/* 页脚间距加大 */
+.site-footer {
+  padding: 24px 16px 32px;
+}
 </style>
