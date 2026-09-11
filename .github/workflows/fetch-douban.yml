@@ -2,8 +2,8 @@ name: Fetch Douban Top250
  
 on:
   schedule:
-    - cron: '0 6 * * 1'  # 每周一早上6点(UTC)跑一次
-  workflow_dispatch:       # 也支持手动触发
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
  
 jobs:
   fetch:
@@ -13,51 +13,10 @@ jobs:
  
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
  
       - name: Grab Top250
-        run: |
-          node -e '
-          const https = require("https");
-          const fs = require("fs");
-          const UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X)";
-          const items = [];
-          let done = 0;
- 
-          for (let page = 0; page < 4; page++) {
-            const start = page * 25;
-            const url = start === 0
-              ? "https://movie.douban.com/top250"
-              : "https://movie.douban.com/top250?start=" + start;
- 
-            https.get(url, { headers: { "User-Agent": UA } }, (res) => {
-              let html = "";
-              res.on("data", d => html += d);
-              res.on("end", () => {
-                const regex = /<li>[\s\S]*?<a href="https:\/\/movie\.douban\.com\/subject\/(\d+)\/"[\s\S]*?(?:data-src|src)="([^"]*)"[\s\S]*?<span class="title">([^<]+)<\/span>[\s\S]*?<span class="rating_num"[^>]*>([\d.]+)<\/span>[\s\S]*?(?:<span class="inq">([^<]*)<\/span>)?[\s\S]*?<\/li>/g;
-                let m;
-                while ((m = regex.exec(html)) !== null) {
-                  let cover = m[2];
-                  if (cover.startsWith("//")) cover = "https:" + cover;
-                  items.push({
-                    id: Number(m[1]),
-                    title: "【" + m[4] + "】" + m[3],
-                    cover,
-                    desc: m[5] || "",
-                    url: "https://movie.douban.com/subject/" + m[1] + "/"
-                  });
-                }
-                done++;
-                if (done === 4) {
-                  items.sort((a, b) => parseFloat(b.title.match(/【([\d.]+)】/)?.[1] || 0) - parseFloat(a.title.match(/【([\d.]+)】/)?.[1] || 0));
-                  fs.mkdirSync("server/core/data", { recursive: true });
-                  fs.writeFileSync("server/core/data/top250.json", JSON.stringify(items, null, 2));
-                  console.log("Fetched " + items.length + " items");
-                }
-              });
-            });
-          }
-          '
+        run: node scripts/grab-douban.js
  
       - name: Commit if changed
         run: |
