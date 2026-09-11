@@ -54,6 +54,12 @@
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
 
+        <!-- 搜索小贴士 -->
+    <div class="search-tip">
+      <svg class="search-tip-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <span class="search-tip-text">{{ currentTip }}</span>
+    </div>
+    
     <!-- 统计和过滤器 -->
     <div v-if="searched" class="stats-bar">
       <div class="stats-content">
@@ -170,6 +176,28 @@ const siteUrl = (config.public?.siteUrl as string) || "";
 const route = useRoute();
 const router = useRouter();
 
+// 搜索小贴士
+const tips = [
+  '关键词尽量不要包含「的」「与」「了」等助词，只保留核心词效果更好',
+  '搜索电影可直接用片名，如「星际穿越」而非「星际穿越百度云」',
+  '多个关键词用空格分隔，如「四六级 真题 2024」',
+  '精确搜索适合查找特定文件，模糊搜索结果更全面',
+  '搜索结果支持按平台筛选，点击上方标签即可切换',
+  '链接失效可点击「已失效」标签查看状态，支持复制链接分享',
+];
+const tipIndex = ref(0);
+const currentTip = computed(() => tips[tipIndex.value]);
+ 
+let tipTimer: ReturnType<typeof setInterval> | null = null;
+onMounted(() => {
+  tipTimer = setInterval(() => {
+    tipIndex.value = (tipIndex.value + 1) % tips.length;
+  }, 6000);
+});
+onBeforeUnmount(() => {
+  if (tipTimer) clearInterval(tipTimer);
+});
+  
 // 豆瓣热榜组件引用
 const doubanHotRef = ref<InstanceType<typeof DoubanHotSection> | null>(null);
 
@@ -857,5 +885,32 @@ function visibleSorted(items: any[]) {
   .hero, .stats-bar, .results-section, .empty-state, .error-alert { animation: none; }
   .filter-pill:hover { transform: none; }
   .pulse-dot { animation: none; opacity: 0.7; }
+}
+
+  /* 搜索小贴士 */
+.search-tip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  animation: fadeIn 0.4s ease;
+}
+ 
+.search-tip-icon {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  opacity: 0.6;
+}
+ 
+.search-tip-text {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  transition: opacity 0.3s ease;
+}
+ 
+/* 移动端 */
+@media (max-width: 640px) {
+  .search-tip-text { font-size: 11px; }
 }
 </style>
