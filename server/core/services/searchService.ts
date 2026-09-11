@@ -83,8 +83,8 @@ export interface SearchServiceOptions {
 }
 
 export class SearchService {
-  private static readonly TG_CHANNEL_LIMIT = 80;
-  private static readonly TG_DEEP_CHANNEL_LIMIT = 160;
+  private static readonly TG_CHANNEL_LIMIT = 120;
+  private static readonly TG_DEEP_CHANNEL_LIMIT = 240;
   private static readonly TG_DEEP_SEARCH_TRIGGER = 3;
   private static readonly PLUGIN_VARIANT_TRIGGER = 5;
 
