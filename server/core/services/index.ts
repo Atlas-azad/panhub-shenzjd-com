@@ -26,6 +26,7 @@ import { Quark4kPlugin } from "../plugins/quark4k";
 import { OugePlugin } from "../plugins/ouge";
 import { WanouPlugin } from "../plugins/wanou";
 import { DyyjvPlugin } from "../plugins/dyyjv";
+import { PansouApiPlugin } from "../plugins/pansouApi";
 
 const SERVICE_CONTEXT_KEY = "__panhub_search_service__";
 
@@ -63,6 +64,7 @@ function createPluginManager(): PluginManager {
   //   solidtorrents / torrentgalaxy / x1337x 的处理），整站无网盘链接无保留价值
   // 2026-08-07 新增：dyyjv（电影云集，WordPress REST API，详情页内嵌夸克/百度链接）
   safeRegister("dyyjv", () => new DyyjvPlugin());
+  safeRegister("pansouApi", () => new PansouApiPlugin());
   pm.registerAllGlobalPlugins();
   return pm;
 }
