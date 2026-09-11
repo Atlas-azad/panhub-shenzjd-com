@@ -13,15 +13,15 @@
         <p class="hero-tagline">全网网盘资源聚合搜索引擎</p>
         <p class="hero-desc">一键检索阿里云盘、夸克、百度网盘、115、迅雷等平台的分享资源，实时聚合、去重整理，直达你想要的内容</p>
          <div class="hero-platforms">
-          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/aliyun.png" alt="" />阿里云盘</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/aliyun.png" alt="" />阿里</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/quark.png" alt="" />夸克</span>
-          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/baidu.png" alt="" />百度网盘</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/baidu.png" alt="" />百度</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/115.png" alt="" />115</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/xunlei.png" alt="" />迅雷</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/tianyi.png" alt="" />天翼</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/uc.png" alt="" />UC</span>
-          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/123.png" alt="" />123网盘</span>
-          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/mobile.png" alt="" />移动云盘</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/123.png" alt="" />123</span>
+          <span class="hero-platform"><img class="hero-platform-icon" src="/icons/mobile.png" alt="" />移动</span>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
