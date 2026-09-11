@@ -105,6 +105,14 @@ async function fetchTopList(typeId: number, limit = 50): Promise<DoubanHotItem[]
  * 页数/sleep 需克制：4 页（100 条）够翻页展示，间隔 500ms 防封且快。
  */
 async function scrapeTop250(): Promise<DoubanHotItem[]> {
+    // 优先读预抓取的静态 JSON（Vercel 被 Douban 封 IP 时兜底）
+  try {
+    const staticData = await import("../data/top250.json");
+    const arr = (staticData as any).default || staticData;
+    if (Array.isArray(arr) && arr.length > 0) {
+      return arr as DoubanHotItem[];
+    }
+  } catch {}
   const allItems: DoubanHotItem[] = [];
   const UA_LOCAL = "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15";
   const PAGE_COUNT = 4;
