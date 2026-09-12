@@ -150,25 +150,18 @@
         </transition>
  
         <div v-if="items.length > 0" class="load-section">
-          <div
-            v-if="hasMore || loadingMore"
-            ref="loadTriggerRef"
-            class="load-trigger"
-          >
-            <div v-if="loadingMore" class="loading-more">
-              <div class="spinner-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <span>加载更多…</span>
-            </div>
-          </div>
+  <div v-if="hasMore" class="load-trigger" style="cursor:pointer;padding:1rem;text-align:center;" @click="loadMore">
+    <div v-if="loadingMore" class="loading-more">
+      <div class="spinner-dots"><span></span><span></span><span></span></div>
+      <span>加载中…</span>
+    </div>
+    <span v-else>点击加载更多</span>
+  </div>
  
-          <div v-else-if="items.length > 0" class="end-message">
-            — 已经到底了 —
-          </div>
-        </div>
+  <div v-else-if="items.length > 0" class="end-message">
+    — 已经到底了 —
+  </div>
+</div>
  
         <div v-if="!loading && items.length === 0" class="empty-state">
           <span class="empty-icon">📭</span>
@@ -405,8 +398,6 @@ function onItemClick(title: string) {
 
 async function init() {
   await fetchCategoryData(selectedCategoryId.value, 1, false);
-  await nextTick();
-  setupLoadMoreObserver();
 }
 
 async function refresh() {
