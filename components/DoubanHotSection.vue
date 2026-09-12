@@ -213,24 +213,17 @@ const duanjuHasMore = computed(() => duanjuDisplayCount.value < duanjuAllItems.v
 async function fetchDuanju() {
   duanjuLoading.value = true;
   try {
-    let allItems: { title: string; url: string; cover?: string }[] = [];
-    let page = 1;
-    let more = true;
-    while (more) {
-      const resp = await fetch(`/api/duanju-list?page=${page}&limit=100`);
-      const json = await resp.json();
-      if (json.code === 0 && json.data) {
-        allItems = allItems.concat(json.data.items || []);
-        more = json.data.hasMore;
-        page++;
-      } else {
-        more = false;
-      }
-    }
-    duanjuAllItems.value = allItems;
+    const resp = await fetch('/data/duanju.json');
+    const json = await resp.json();
+    const arr = Array.isArray(json) ? json : [];
+    duanjuAllItems.value = arr;
     duanjuDisplayCount.value = 25;
   } catch {}
   duanjuLoading.value = false;
+}
+ 
+function duanjuLoadMore() {
+  duanjuDisplayCount.value += 25;
 }
  
 function duanjuLoadMore() {
