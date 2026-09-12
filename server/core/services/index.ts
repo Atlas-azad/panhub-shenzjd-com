@@ -27,6 +27,7 @@ import { OugePlugin } from "../plugins/ouge";
 import { WanouPlugin } from "../plugins/wanou";
 import { DyyjvPlugin } from "../plugins/dyyjv";
 import { PansouApiPlugin } from "../plugins/pansouApi";
+import { AipanPlugin } from "../plugins/aipan";
 
 const SERVICE_CONTEXT_KEY = "__panhub_search_service__";
 
@@ -65,6 +66,7 @@ function createPluginManager(): PluginManager {
   // 2026-08-07 新增：dyyjv（电影云集，WordPress REST API，详情页内嵌夸克/百度链接）
   safeRegister("dyyjv", () => new DyyjvPlugin());
   safeRegister("pansouApi", () => new PansouApiPlugin());
+  safeRegister("aipan", () => new AipanPlugin());
   pm.registerAllGlobalPlugins();
   return pm;
 }
