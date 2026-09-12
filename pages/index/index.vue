@@ -438,13 +438,11 @@ function visibleItems(type: string, items: any[]) {
 // 按相关性排序，同分的按时间排序
 function sortItems(items: any[]) {
   const keyword = (kw.value || "").trim().toLowerCase();
-  const kwWords = kw.split(/\s+/).filter(Boolean);
+  const kwWords = keyword.split(/\s+/).filter(Boolean);
   return [...items].sort((a, b) => {
-    // 相关性评分
-    const scoreA = itemRelevance(a, kw, kwWords);
-    const scoreB = itemRelevance(b, kw, kwWords);
+    const scoreA = itemRelevance(a, keyword, kwWords);
+    const scoreB = itemRelevance(b, keyword, kwWords);
     if (scoreA !== scoreB) return scoreB - scoreA;
-    // 同分时按时间降序
     return new Date(b?.datetime || "1970-01-01").getTime() -
            new Date(a?.datetime || "1970-01-01").getTime();
   });
