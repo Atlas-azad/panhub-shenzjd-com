@@ -1,7 +1,8 @@
 import { BaseAsyncPlugin } from "./manager";
 import type { SearchResult, Link } from "../types/models";
 import { ofetch } from "ofetch";
- 
+
+const PROXY_BASE = "https://xiaokupan-proxy.azad-sl.workers.dev";
 const SEARCH_BASE_URL = "https://xiaokupan.com/s";
  
 const SERVICE_MAP: Record<string, string> = {
@@ -163,8 +164,8 @@ export class XiaokupanPlugin extends BaseAsyncPlugin {
  
     let html = "";
     try {
-      html = await ofetch<string>(
-        `${SEARCH_BASE_URL}/${encodeURIComponent(kw)}`,
+        html = await ofetch<string>(
+        `${PROXY_BASE}/?url=${encodeURIComponent(`${SEARCH_BASE_URL}/${encodeURIComponent(kw)}`)}`,
         {
           headers: {
             "User-Agent":
