@@ -28,6 +28,7 @@ import { WanouPlugin } from "../plugins/wanou";
 import { DyyjvPlugin } from "../plugins/dyyjv";
 import { PansouApiPlugin } from "../plugins/pansouApi";
 import { AipanPlugin } from "../plugins/aipan";
+import { XiaokupanPlugin } from "../plugins/xiaokupan";
 
 const SERVICE_CONTEXT_KEY = "__panhub_search_service__";
 
@@ -67,6 +68,7 @@ function createPluginManager(): PluginManager {
   safeRegister("dyyjv", () => new DyyjvPlugin());
   safeRegister("pansouApi", () => new PansouApiPlugin());
   safeRegister("aipan", () => new AipanPlugin());
+  safeRegister("xiaokupan", () => new XiaokupanPlugin());
   pm.registerAllGlobalPlugins();
   return pm;
 }
