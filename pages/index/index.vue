@@ -435,15 +435,35 @@ function visibleItems(type: string, items: any[]) {
   return isExpanded(type) ? items : items.slice(0, initialVisible);
 }
 
-// 排序（2026-09-04：SSE 流推送时 merge 数组按到达批次 push，组内顺序乱序，
-// 固定按发布时间降序在展示层实时重排——最新到达的结果永远在最前。
-// 产品决定移除其它排序选项，故不再有 sortType 状态）
+// 按相关性排序，同分的按时间排序
 function sortItems(items: any[]) {
-  return [...items].sort(
-    (a, b) =>
-      new Date(b?.datetime || "1970-01-01").getTime() -
-      new Date(a?.datetime || "1970-01-01").getTime()
-  );
+  const kw = (kw.value || "").trim().toLowerCase();
+  const kwWords = kw.split(/\s+/).filter(Boolean);
+  return [...items].sort((a, b) => {
+    // 相关性评分
+    const scoreA = itemRelevance(a, kw, kwWords);
+    const scoreB = itemRelevance(b, kw, kwWords);
+    if (scoreA !== scoreB) return scoreB - scoreA;
+    // 同分时按时间降序
+    return new Date(b?.datetime || "1970-01-01").getTime() -
+           new Date(a?.datetime || "1970-01-01").getTime();
+  });
+}
+ 
+function itemRelevance(item: any, kwLower: string, kwWords: string[]): number {
+  const title = (item?.title || "").toLowerCase();
+  const content = (item?.content || "").toLowerCase();
+  let score = 0;
+  if (title.includes(kwLower)) score += 100;
+  if (content.includes(kwLower)) score += 50;
+  for (const word of kwWords) {
+    if (title.includes(word)) score += 20;
+    if (content.includes(word)) score += 10;
+  }
+  if (title.includes(kwLower)) {
+    score += Math.max(0, 50 - title.length);
+  }
+  return score;
 }
 
 function visibleSorted(items: any[]) {
