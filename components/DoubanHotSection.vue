@@ -392,7 +392,14 @@ function onLeave(el: Element, done: () => void) {
 }
 
 function onItemClick(title: string) {
-  const term = extractTerm(title);
+  let term = extractTerm(title);
+  // 去掉集数/季数等尾部信息，保留核心片名
+  // 如 "我有座小荒山靠文旅火遍全世界第三季 127 集" → "我有座小荒山靠文旅火遍全世界"
+  term = term
+    .replace(/第[一二三四五六七八九十\d]+季/g, "")
+    .replace(/\d+集/g, "")
+    .replace(/[·\-—].*$/, "")
+    .trim();
   if (term) props.onSearch(term);
 }
 
