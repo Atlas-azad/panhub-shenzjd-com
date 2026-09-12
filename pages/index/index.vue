@@ -59,11 +59,32 @@
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
 
-        <!-- 搜索小贴士 -->
+            <!-- 搜索小贴士 -->
     <div class="search-tip">
       <svg class="search-tip-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
       <span class="search-tip-text">{{ currentTip }}</span>
+      <button class="search-tip-all" type="button" @click="showAllTips = true">查看全部</button>
     </div>
+ 
+    <!-- 全部贴士面板 -->
+    <Teleport to="body">
+      <div v-if="showAllTips" class="tips-overlay" @click.self="showAllTips = false">
+        <div class="tips-panel">
+          <div class="tips-panel-header">
+            <h3 class="tips-panel-title">搜索小贴士</h3>
+            <button class="tips-panel-close" type="button" @click="showAllTips = false" aria-label="关闭">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <ul class="tips-list">
+            <li v-for="(tip, i) in tips" :key="i" class="tips-item">
+              <span class="tips-item-num">{{ i + 1 }}</span>
+              <span class="tips-item-text">{{ tip }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Teleport>
     
     <!-- 统计和过滤器 -->
     <div v-if="searched" class="stats-bar">
@@ -194,6 +215,7 @@ const tips = [
   '「短剧」搜索关键词尽量完整，第一次搜不到时，可重复搜索一遍',
   '搜索关键词太长太精确，可能导致匹配不到，可减少关键词重新搜索',
 ];
+const showAllTips = ref(false);
 const tipIndex = ref(0);
 const currentTip = computed(() => tips[tipIndex.value]);
  
@@ -918,6 +940,7 @@ function visibleSorted(items: any[]) {
 }
 
   /* 搜索小贴士 */
+/* 搜索小贴士 */
 .search-tip {
   display: flex;
   align-items: center;
@@ -936,11 +959,150 @@ function visibleSorted(items: any[]) {
   font-size: 12px;
   color: var(--text-tertiary);
   line-height: 1.5;
-  transition: opacity 0.3s ease;
+  flex: 1;
+  min-width: 0;
+}
+ 
+.search-tip-all {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+ 
+.search-tip-all:hover {
+  color: var(--primary);
+  border-color: rgba(26, 122, 109, 0.2);
+  background: rgba(26, 122, 109, 0.04);
+}
+ 
+/* 全部贴士面板 */
+.tips-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: tipsFadeIn 0.2s ease;
+}
+ 
+.tips-panel {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  width: 90vw;
+  max-width: 460px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  animation: tipsSlideIn 0.25s ease;
+}
+ 
+.tips-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+ 
+.tips-panel-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+ 
+.tips-panel-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+ 
+.tips-panel-close:hover {
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+  background: var(--bg-secondary);
+}
+ 
+.tips-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 24px 20px;
+  overflow-y: auto;
+}
+ 
+.tips-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+ 
+.tips-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+ 
+.tips-item-num {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  background: rgba(26, 122, 109, 0.06);
+  border: 1px solid rgba(26, 122, 109, 0.12);
+  border-radius: 6px;
+  margin-top: 1px;
+}
+ 
+.tips-item-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+ 
+@keyframes tipsFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+ 
+@keyframes tipsSlideIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
  
 /* 移动端 */
 @media (max-width: 640px) {
   .search-tip-text { font-size: 11px; }
+  .tips-panel { max-width: 100vw; border-radius: 14px; }
+  .tips-panel-header { padding: 16px 18px 10px; }
+  .tips-list { padding: 6px 18px 16px; }
+  .tips-item-text { font-size: 12px; }
 }
 </style>
