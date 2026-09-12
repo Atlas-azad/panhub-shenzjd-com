@@ -65,21 +65,8 @@
       <span class="search-tip-text">{{ currentTip }}</span>
       <button class="search-tip-all" type="button" @click="showAllTips = true">查看全部</button>
     </div>
-        <!-- 免责声明 -->
-    <div class="disclaimer">
-      <div class="disclaimer-main">
-        <span class="disclaimer-title">免责声明</span>
-        <span class="disclaimer-item">本站仅提供网盘资源搜索服务，不存储任何文件内容</span>
-        <span class="disclaimer-item">所有资源均来自互联网公开分享，版权归原作者所有</span>
-        <span class="disclaimer-item">用户下载使用资源时请遵守相关法律法规</span>
-      </div>
-      <div class="disclaimer-footer">
-        版权与问题反馈：版权方如需屏蔽搜索关键词，或您遇到其他问题，欢迎发送邮件至
-        <a class="disclaimer-email" href="mailto:Azad-sl@88.com">Azad-sl@88.com</a>
-      </div>
-    </div>
- 
-    <!-- 全部贴士面板 -->
+      
+       <!-- 全部贴士面板 -->
     <Teleport to="body">
       <div v-if="showAllTips" class="tips-overlay" @click.self="showAllTips = false">
         <div class="tips-panel">
@@ -89,12 +76,27 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
-          <ul class="tips-list">
-            <li v-for="(tip, i) in tips" :key="i" class="tips-item">
-              <span class="tips-item-num">{{ i + 1 }}</span>
-              <span class="tips-item-text">{{ tip }}</span>
-            </li>
-          </ul>
+          <div class="tips-panel-body">
+            <ul class="tips-list">
+              <li v-for="(tip, i) in tips" :key="i" class="tips-item">
+                <span class="tips-item-num">{{ i + 1 }}</span>
+                <span class="tips-item-text">{{ tip }}</span>
+              </li>
+            </ul>
+            <div class="tips-disclaimer">
+              <div class="tips-disclaimer-heading">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>免责声明</span>
+              </div>
+              <p class="tips-disclaimer-line">本站仅提供网盘资源搜索服务，不存储任何文件内容</p>
+              <p class="tips-disclaimer-line">所有资源均来自互联网公开分享，版权归原作者所有</p>
+              <p class="tips-disclaimer-line">用户下载使用资源时请遵守相关法律法规</p>
+              <p class="tips-disclaimer-contact">
+                版权与问题反馈：版权方如需屏蔽搜索关键词，或您遇到其他问题，欢迎发送邮件至
+                <a class="tips-disclaimer-email" href="mailto:Azad-sl@88.com">Azad-sl@88.com</a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Teleport>
@@ -1028,6 +1030,7 @@ function visibleSorted(items: any[]) {
   justify-content: space-between;
   padding: 20px 24px 12px;
   border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
 }
  
 .tips-panel-title {
@@ -1058,11 +1061,15 @@ function visibleSorted(items: any[]) {
   background: var(--bg-secondary);
 }
  
+.tips-panel-body {
+  overflow-y: auto;
+  padding: 0;
+}
+ 
 .tips-list {
   list-style: none;
   margin: 0;
-  padding: 8px 24px 20px;
-  overflow-y: auto;
+  padding: 8px 24px 12px;
 }
  
 .tips-item {
@@ -1075,7 +1082,6 @@ function visibleSorted(items: any[]) {
  
 .tips-item:last-child {
   border-bottom: none;
-  padding-bottom: 0;
 }
  
 .tips-item-num {
@@ -1100,6 +1106,64 @@ function visibleSorted(items: any[]) {
   line-height: 1.6;
 }
  
+/* 弹窗内免责声明 */
+.tips-disclaimer {
+  margin: 4px 24px 20px;
+  padding: 14px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+}
+ 
+.tips-disclaimer-heading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+ 
+.tips-disclaimer-heading svg {
+  color: var(--primary);
+  opacity: 0.6;
+}
+ 
+.tips-disclaimer-line {
+  margin: 0 0 3px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  padding-left: 4px;
+}
+ 
+.tips-disclaimer-line::before {
+  content: "•";
+  margin-right: 5px;
+  opacity: 0.4;
+}
+ 
+.tips-disclaimer-contact {
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+ 
+.tips-disclaimer-email {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 122, 109, 0.25);
+  transition: border-color var(--transition-fast);
+}
+ 
+.tips-disclaimer-email:hover {
+  border-color: var(--primary);
+}
+ 
 @keyframes tipsFadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -1109,70 +1173,15 @@ function visibleSorted(items: any[]) {
   from { opacity: 0; transform: translateY(10px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-  /* 免责声明 */
-.disclaimer {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 10px;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  line-height: 1.6;
-}
- 
-.disclaimer-main {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2px 6px;
-}
- 
-.disclaimer-title {
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-right: 2px;
-}
- 
-.disclaimer-item::before {
-  content: "·";
-  margin-right: 4px;
-  opacity: 0.5;
-}
- 
-.disclaimer-footer {
-  padding-top: 2px;
-  border-top: 1px solid var(--border-light);
-  margin-top: 2px;
-}
- 
-.disclaimer-email {
-  color: var(--primary);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(26, 122, 109, 0.25);
-  transition: border-color var(--transition-fast);
-}
- 
-.disclaimer-email:hover {
-  border-color: var(--primary);
-}
  
 /* 移动端 */
 @media (max-width: 640px) {
-  .disclaimer { font-size: 10px; padding: 8px 12px; }
-  .disclaimer-main { flex-direction: column; gap: 0; }
-  .disclaimer-item::before { content: ""; margin: 0; }
-}
-  
-/* 移动端 */
-@media (max-width: 640px) {
-  .search-tip-text { font-size: 11px; }
   .tips-panel { max-width: 100vw; border-radius: 14px; }
   .tips-panel-header { padding: 16px 18px 10px; }
-  .tips-list { padding: 6px 18px 16px; }
+  .tips-list { padding: 6px 18px 8px; }
   .tips-item-text { font-size: 12px; }
+  .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
+  .tips-disclaimer-line { font-size: 10px; }
+  .tips-disclaimer-contact { font-size: 10px; }
 }
 </style>
