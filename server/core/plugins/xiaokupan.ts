@@ -216,7 +216,6 @@ export class XiaokupanPlugin extends BaseAsyncPlugin {
         links,
       });
       idx++;
-      if (idx >= 100) break;
     }
  
     return results;
