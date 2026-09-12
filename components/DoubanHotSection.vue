@@ -76,9 +76,9 @@
         </div>
  
         <div v-if="duanjuItems.length > 0" class="load-section">
-          <div v-if="duanjuHasMore" class="load-trigger" style="cursor:pointer;padding:1rem;text-align:center;" @click="duanjuPage++; fetchDuanju(true)">
-            <span>加载更多…</span>
-          </div>
+          <div v-if="duanjuHasMore" class="load-trigger" style="cursor:pointer;padding:1rem;text-align:center;" @click="duanjuLoadMore">
+  <span>加载更多…</span>
+</div>
           <div v-else class="end-message">— 已经到底了 —</div>
         </div>
  
@@ -204,27 +204,27 @@ const items = ref<DoubanHotItem[]>([]);
 const hasMore = ref(true);
 const imgFailed = ref<number[]>([]);
 // 短剧数据
-const duanjuItems = ref<{ title: string; url: string; cover?: string }[]>([]);
-const duanjuPage = ref(1);
-const duanjuHasMore = ref(false);
+const duanjuAllItems = ref<{ title: string; url: string; cover?: string }[]>([]);
+const duanjuItems = computed(() => duanjuAllItems.value.slice(0, duanjuDisplayCount.value));
+const duanjuDisplayCount = ref(25);
 const duanjuLoading = ref(false);
+const duanjuHasMore = computed(() => duanjuDisplayCount.value < duanjuAllItems.value.length);
  
-async function fetchDuanju(append = false) {
+async function fetchDuanju() {
   duanjuLoading.value = true;
   try {
-    const resp = await fetch(`/api/duanju-list?page=${duanjuPage.value}&limit=25`);
+    const resp = await fetch(`/api/duanju-list?page=1&limit=9999`);
     const json = await resp.json();
     if (json.code === 0 && json.data) {
-      const newItems = json.data.items || [];
-      if (append) {
-        duanjuItems.value = [...duanjuItems.value, ...newItems];
-      } else {
-        duanjuItems.value = newItems;
-      }
-      duanjuHasMore.value = json.data.hasMore || false;
+      duanjuAllItems.value = json.data.items || [];
+      duanjuDisplayCount.value = 25;
     }
   } catch {}
   duanjuLoading.value = false;
+}
+ 
+function duanjuLoadMore() {
+  duanjuDisplayCount.value += 25;
 }
 const selectedCategoryId = ref<string>("douban-top250");
 const currentPage = ref(1);
@@ -321,12 +321,11 @@ async function selectCategory(categoryId: string) {
  
   selectedCategoryId.value = categoryId;
  
-  if (categoryId === 'duanju') {
-    // 短剧分支
-    duanjuPage.value = 1;
-    duanjuItems.value = [];
+    if (categoryId === 'duanju') {
+    duanjuAllItems.value = [];
+    duanjuDisplayCount.value = 25;
     duanjuLoading.value = true;
-    await fetchDuanju(false);
+    await fetchDuanju();
     return;
   }
  
