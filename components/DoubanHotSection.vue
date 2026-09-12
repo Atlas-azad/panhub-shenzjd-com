@@ -1,18 +1,16 @@
 <template>
   <div class="douban-section">
-    <!-- 分类 Tabs - 始终可点击 -->
+    <!-- 分类 Tabs -->
     <nav class="category-nav" role="tablist">
-      <!-- 短剧 Tab -->
-  <button
-    :class="['tab-button', { 'is-active': selectedCategoryId === 'duanju' }]"
-    data-theme-part="tab-button"
-    :aria-selected="selectedCategoryId === 'duanju'"
-    role="tab"
-    @click="selectCategory('duanju')"
-  >
-    <span class="tab-label">短剧</span>
-  </button>
- 
+      <button
+        :class="['tab-button', { 'is-active': selectedCategoryId === 'duanju' }]"
+        data-theme-part="tab-button"
+        :aria-selected="selectedCategoryId === 'duanju'"
+        role="tab"
+        @click="selectCategory('duanju')"
+      >
+        <span class="tab-label">短剧</span>
+      </button>
       <button
         v-for="cat in availableCategories"
         :key="cat.id"
@@ -25,115 +23,162 @@
         <span class="tab-label">{{ cat.type || cat.label }}</span>
       </button>
     </nav>
-
+ 
     <!-- 内容区域 -->
     <div class="content-area">
  
-  <!-- ===== 短剧内容 ===== -->
-  <template v-if="selectedCategoryId === 'duanju'">
-    <!-- 骨架屏 -->
-    <div v-if="duanjuLoading && duanjuItems.length === 0" class="skeleton-grid">
-      <div v-for="i in 10" :key="'dsk-' + i" class="skeleton-card"
-        data-theme-part="skeleton-card"
-        :style="{ animationDelay: `${i * 0.05}s` }">
-        <div class="skeleton-cover"><div class="skeleton-shimmer"></div></div>
-        <div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-desc"></div></div>
-      </div>
-    </div>
- 
-    <!-- 短剧卡片网格 -->
-    <div v-show="!duanjuLoading || duanjuItems.length > 0" class="movie-grid">
-      <div class="grid-container">
-        <button
-          v-for="item in duanjuItems"
-          :key="item.url"
-          class="movie-card"
-          data-theme-part="movie-card"
-          :aria-label="'搜索 ' + extractTerm(item.title)"
-          @click="onItemClick(item.title)"
-        >
-          <div class="card-cover">
-            <img v-if="item.cover" :src="item.cover" :alt="extractTerm(item.title)" loading="lazy" referrerpolicy="no-referrer" @error="($event.target as HTMLImageElement).style.display='none'" />
-            <div v-else class="cover-placeholder">🎬</div>
-          </div>
-          <div class="card-info">
-            <span class="card-title">{{ item.title }}</span>
-          </div>
-        </button>
-      </div>
-    </div>
- 
-    <!-- 加载更多 -->
-    <div v-if="duanjuItems.length > 0" class="load-section">
-      <div v-if="duanjuHasMore" class="load-trigger" style="cursor:pointer;padding:1rem;text-align:center;" @click="duanjuPage++; fetchDuanju(true)">
-        <span>加载更多…</span>
-      </div>
-      <div v-else class="end-message">— 已经到底了 —</div>
-    </div>
- 
-    <!-- 空状态 -->
-    <div v-if="!duanjuLoading && duanjuItems.length === 0" class="empty-state">
-      <span class="empty-icon">📭</span>
-      <span class="empty-text">暂无数据</span>
-    </div>
-  </template>
- 
-  <!-- ===== 豆瓣内容（原有代码，一个字不改） ===== -->
-  <template v-else>
-    <!-- 骨架屏 Loading -->
-    <div v-if="loading && items.length === 0" class="skeleton-grid">
-      <div v-for="i in 10" :key="`skeleton-${i}`" class="skeleton-card"
-        data-theme-part="skeleton-card"
-        :style="{ animationDelay: `${i * 0.05}s` }">
-        <div class="skeleton-cover"><div class="skeleton-shimmer"></div></div>
-        <div class="skeleton-info"><div class="skeleton-title"></div><div class="skeleton-desc"></div></div>
-      </div>
-    </div>
- 
-    <!-- 内容网格 -->
-    <transition name="grid-transition" mode="out-in"
-      @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave">
-      <div v-show="!loading || items.length > 0" key="content" class="movie-grid">
-        <transition-group name="card-fade" tag="div" class="grid-container">
-          <button v-for="item in items" :key="item.id || item.title"
-            class="movie-card" data-theme-part="movie-card"
-            :aria-label="`搜索 ${extractTerm(item.title)}`"
-            @click="onItemClick(item.title)">
-            <div class="card-cover">
-              <img v-if="item.cover && !imgFailed.includes(item.id ?? 0)"
-                :src="proxyCover(item.cover)" :alt="extractTerm(item.title)"
-                loading="lazy" referrerpolicy="no-referrer"
-                @error="onImgError(item.id ?? 0)" />
-              <div v-else class="cover-placeholder">🎬</div>
+      <!-- ===== 短剧内容 ===== -->
+      <template v-if="selectedCategoryId === 'duanju'">
+        <div v-if="duanjuLoading && duanjuItems.length === 0" class="skeleton-grid">
+          <div
+            v-for="i in 10"
+            :key="'dsk-' + i"
+            class="skeleton-card"
+            data-theme-part="skeleton-card"
+            :style="{ animationDelay: `${i * 0.05}s` }"
+          >
+            <div class="skeleton-cover">
+              <div class="skeleton-shimmer"></div>
             </div>
-            <div class="card-info">
-              <span class="card-title">{{ item.title }}</span>
-              <span v-if="item.desc" class="card-desc">{{ item.desc }}</span>
+            <div class="skeleton-info">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-desc"></div>
             </div>
-          </button>
-        </transition-group>
-      </div>
-    </transition>
- 
-    <!-- 加载更多 -->
-    <div v-if="items.length > 0" class="load-section">
-      <div v-if="hasMore || loadingMore" ref="loadTriggerRef" class="load-trigger">
-        <div v-if="loadingMore" class="loading-more">
-          <div class="spinner-dots"><span></span><span></span><span></span></div>
-          <span>加载更多…</span>
+          </div>
         </div>
-      </div>
-      <div v-else-if="items.length > 0" class="end-message">— 已经到底了 —</div>
-    </div>
  
-    <!-- 空状态 -->
-    <div v-if="!loading && items.length === 0" class="empty-state">
-      <span class="empty-icon">📭</span>
-      <span class="empty-text">暂无数据</span>
-    </div>
-  </template>
+        <div v-show="!duanjuLoading || duanjuItems.length > 0" class="movie-grid">
+          <div class="grid-container">
+            <button
+              v-for="item in duanjuItems"
+              :key="item.url"
+              class="movie-card"
+              data-theme-part="movie-card"
+              :aria-label="'搜索 ' + extractTerm(item.title)"
+              @click="onItemClick(item.title)"
+            >
+              <div class="card-cover">
+                <img
+                  v-if="item.cover"
+                  :src="item.cover"
+                  :alt="extractTerm(item.title)"
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                  @error="($event.target as HTMLImageElement).style.display='none'"
+                />
+                <div v-else class="cover-placeholder">🎬</div>
+              </div>
+              <div class="card-info">
+                <span class="card-title">{{ item.title }}</span>
+              </div>
+            </button>
+          </div>
+        </div>
  
-</div>
+        <div v-if="duanjuItems.length > 0" class="load-section">
+          <div v-if="duanjuHasMore" class="load-trigger" style="cursor:pointer;padding:1rem;text-align:center;" @click="duanjuPage++; fetchDuanju(true)">
+            <span>加载更多…</span>
+          </div>
+          <div v-else class="end-message">— 已经到底了 —</div>
+        </div>
+ 
+        <div v-if="!duanjuLoading && duanjuItems.length === 0" class="empty-state">
+          <span class="empty-icon">📭</span>
+          <span class="empty-text">暂无数据</span>
+        </div>
+      </template>
+ 
+      <!-- ===== 豆瓣内容 ===== -->
+      <template v-else>
+        <div v-if="loading && items.length === 0" class="skeleton-grid">
+          <div
+            v-for="i in 10"
+            :key="`skeleton-${i}`"
+            class="skeleton-card"
+            data-theme-part="skeleton-card"
+            :style="{ animationDelay: `${i * 0.05}s` }"
+          >
+            <div class="skeleton-cover">
+              <div class="skeleton-shimmer"></div>
+            </div>
+            <div class="skeleton-info">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-desc"></div>
+            </div>
+          </div>
+        </div>
+ 
+        <transition
+          name="grid-transition"
+          mode="out-in"
+          @before-enter="onBeforeEnter"
+          @enter="onEnter"
+          @leave="onLeave"
+        >
+          <div v-show="!loading || items.length > 0" key="content" class="movie-grid">
+            <transition-group
+              name="card-fade"
+              tag="div"
+              class="grid-container"
+            >
+              <button
+                v-for="item in items"
+                :key="item.id || item.title"
+                class="movie-card"
+                data-theme-part="movie-card"
+                :aria-label="`搜索 ${extractTerm(item.title)}`"
+                @click="onItemClick(item.title)"
+              >
+                <div class="card-cover">
+                  <img
+                    v-if="item.cover && !imgFailed.includes(item.id ?? 0)"
+                    :src="proxyCover(item.cover)"
+                    :alt="extractTerm(item.title)"
+                    loading="lazy"
+                    referrerpolicy="no-referrer"
+                    @error="onImgError(item.id ?? 0)"
+                  />
+                  <div v-else class="cover-placeholder">🎬</div>
+                </div>
+                <div class="card-info">
+                  <span class="card-title">{{ item.title }}</span>
+                  <span v-if="item.desc" class="card-desc">{{ item.desc }}</span>
+                </div>
+              </button>
+            </transition-group>
+          </div>
+        </transition>
+ 
+        <div v-if="items.length > 0" class="load-section">
+          <div
+            v-if="hasMore || loadingMore"
+            ref="loadTriggerRef"
+            class="load-trigger"
+          >
+            <div v-if="loadingMore" class="loading-more">
+              <div class="spinner-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span>加载更多…</span>
+            </div>
+          </div>
+ 
+          <div v-else-if="items.length > 0" class="end-message">
+            — 已经到底了 —
+          </div>
+        </div>
+ 
+        <div v-if="!loading && items.length === 0" class="empty-state">
+          <span class="empty-icon">📭</span>
+          <span class="empty-text">暂无数据</span>
+        </div>
+      </template>
+ 
+    </div>
+  </div>
+</template>
 
 <script setup lang="ts">
 import { ref, computed, onBeforeUnmount, nextTick } from "vue";
