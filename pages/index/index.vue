@@ -163,12 +163,6 @@
       </ErrorBoundary>
     </section>
  
-    <!-- 热门短剧 - 搜索时隐藏 -->
-    <section v-if="!searched" class="duanju-section-wrap">
-      <ErrorBoundary message="短剧列表加载失败">
-        <DuanjuSection :on-search="quickSearch" />
-      </ErrorBoundary>
-    </section>
  
   </div>
 </template>
