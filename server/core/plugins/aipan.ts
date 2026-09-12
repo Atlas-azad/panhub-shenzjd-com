@@ -18,19 +18,21 @@ const DETAIL_CONCURRENCY = 3;
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
  
-/** 从详情页 HTML 提取网盘链接 */
 function extractAipanLinks(html: string): Link[] {
   const links = extractLinksFromText(html);
-  // 补提取码：URL 中 ?pwd=xxx / ?password=xxx
-  return links.map((l) => {
-    if (l.password) return l;
-    try {
-      const u = new URL(l.url);
-      const pwd = u.searchParams.get("pwd") || u.searchParams.get("password") || "";
-      if (pwd) return { ...l, password: pwd };
-    } catch {}
-    return l;
-  });
+  return links
+    .map((l) => {
+      // 去掉尾随反斜杠
+      const url = l.url.replace(/\\+$/, "");
+      if (l.password) return { ...l, url };
+      try {
+        const u = new URL(url);
+        const pwd = u.searchParams.get("pwd") || u.searchParams.get("password") || "";
+        if (pwd) return { ...l, url, password: pwd };
+      } catch {}
+      return { ...l, url };
+    })
+    .filter((l, i, arr) => arr.findIndex((x) => x.url === l.url) === i); // URL 去重
 }
  
 /** 从搜索结果页 HTML 提取详情页链接 */
@@ -75,9 +77,13 @@ export class AipanPlugin extends BaseAsyncPlugin {
     // 第一步：搜索页
     let detailItems: { url: string; title: string }[] = [];
     try {
-      const html = await ofetch<string>(
+         const html = await ofetch<string>(
         `${BASE}/?search=${encodeURIComponent(kw)}`,
-        { headers: { "user-agent": UA }, timeout }
+        {
+          headers: { "user-agent": UA },
+          timeout,
+          responseType: "text",
+        }
       );
       detailItems = parseSearchPage(html);
     } catch {
@@ -90,9 +96,10 @@ export class AipanPlugin extends BaseAsyncPlugin {
     const tasks = detailItems.slice(0, MAX_DETAILS).map((item, idx) =>
       limitFn(async (): Promise<SearchResult | null> => {
         try {
-          const html = await ofetch<string>(item.url, {
+            const html = await ofetch<string>(item.url, {
             headers: { "user-agent": UA },
             timeout,
+            responseType: "text",
           });
           const links = extractAipanLinks(html);
           if (links.length === 0) return null;
