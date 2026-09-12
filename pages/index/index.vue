@@ -154,23 +154,17 @@
     <section v-if="searchState.error" class="error-alert">
       <span class="error-icon">⚠️</span>
       <span>{{ searchState.error }}</span>
-    </section>
-
-    <!-- 豆瓣电影新片榜 - 搜索时隐藏 -->
-    <section v-if="!searched" class="douban-hot-section">
-      <ErrorBoundary message="豆瓣热榜加载失败">
-        <DoubanHotSection ref="doubanHotRef" :on-search="quickSearch" />
+       </section>
+ 
+    <!-- 热门短剧 - 搜索时隐藏 -->
+    <section v-if="!searched" class="duanju-section-wrap">
+      <ErrorBoundary message="短剧列表加载失败">
+        <DuanjuSection :on-search="quickSearch" />
       </ErrorBoundary>
     </section>
+ 
   </div>
 </template>
-
-<!-- 热门短剧 - 搜索时隐藏 -->
-<section v-if="!searched" class="duanju-section">
-  <ErrorBoundary message="短剧列表加载失败">
-    <DuanjuSection :on-search="quickSearch" />
-  </ErrorBoundary>
-</section>
 
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from "vue";
