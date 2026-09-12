@@ -437,7 +437,7 @@ function visibleItems(type: string, items: any[]) {
 
 // 按相关性排序，同分的按时间排序
 function sortItems(items: any[]) {
-  const kw = (kw.value || "").trim().toLowerCase();
+  const keyword = (kw.value || "").trim().toLowerCase();
   const kwWords = kw.split(/\s+/).filter(Boolean);
   return [...items].sort((a, b) => {
     // 相关性评分
