@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const rawPage = parseInt((query.page as string) || "1", 10);
   const rawLimit = parseInt((query.limit as string) || "25", 10);
   const page = Number.isFinite(rawPage) && rawPage >= 1 ? rawPage : 1;
-  const limit = Number.isFinite(rawLimit) && rawLimit >= 1 && rawLimit <= 100 ? rawLimit : 25;
+  const limit = Number.isFinite(rawLimit) && rawLimit >= 1 ? Math.min(rawLimit, 5000) : 25;
  
   try {
     const data = await import("../core/data/duanju.json");
