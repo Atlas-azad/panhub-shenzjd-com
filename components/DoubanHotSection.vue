@@ -226,9 +226,6 @@ function duanjuLoadMore() {
   duanjuDisplayCount.value += 25;
 }
  
-function duanjuLoadMore() {
-  duanjuDisplayCount.value += 25;
-}
 const selectedCategoryId = ref<string>("douban-top250");
 const currentPage = ref(1);
 const loadObserver = ref<IntersectionObserver | null>(null);
