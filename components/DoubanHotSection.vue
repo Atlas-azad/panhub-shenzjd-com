@@ -9,7 +9,7 @@
         role="tab"
         @click="selectCategory('duanju')"
       >
-        <span class="tab-label">短剧</span>
+        <span class="tab-label">🔥热门短剧</span>
       </button>
       <button
         v-for="cat in availableCategories"
@@ -237,7 +237,7 @@ let fetchSeq = 0;
 // 所有可用的分类配置（与 config/doubanHot.ts 同步）
 const availableCategories = computed(() => {
   return [
-    { id: "douban-top250", label: "电影", type: "Top250" },
+    { id: "douban-top250", label: "电影", type: "🔥Top250" },
     { id: "douban-drama", label: "电影", type: "剧情" },
     { id: "douban-comedy", label: "电影", type: "喜剧" },
     { id: "douban-action", label: "电影", type: "动作" },
