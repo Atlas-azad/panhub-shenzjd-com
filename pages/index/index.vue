@@ -165,6 +165,13 @@
   </div>
 </template>
 
+<!-- 热门短剧 - 搜索时隐藏 -->
+<section v-if="!searched" class="duanju-section">
+  <ErrorBoundary message="短剧列表加载失败">
+    <DuanjuSection :on-search="quickSearch" />
+  </ErrorBoundary>
+</section>
+
 <script setup lang="ts">
 import { ref, onMounted, nextTick } from "vue";
 import { PLATFORM_INFO } from "~/config/plugins";
