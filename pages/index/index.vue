@@ -65,6 +65,19 @@
       <span class="search-tip-text">{{ currentTip }}</span>
       <button class="search-tip-all" type="button" @click="showAllTips = true">查看全部</button>
     </div>
+        <!-- 免责声明 -->
+    <div class="disclaimer">
+      <div class="disclaimer-main">
+        <span class="disclaimer-title">免责声明</span>
+        <span class="disclaimer-item">本站仅提供网盘资源搜索服务，不存储任何文件内容</span>
+        <span class="disclaimer-item">所有资源均来自互联网公开分享，版权归原作者所有</span>
+        <span class="disclaimer-item">用户下载使用资源时请遵守相关法律法规</span>
+      </div>
+      <div class="disclaimer-footer">
+        版权与问题反馈：版权方如需屏蔽搜索关键词，或您遇到其他问题，欢迎发送邮件至
+        <a class="disclaimer-email" href="mailto:Azad-sl@88.com">Azad-sl@88.com</a>
+      </div>
+    </div>
  
     <!-- 全部贴士面板 -->
     <Teleport to="body">
@@ -212,7 +225,7 @@ const tips = [
   '精确搜索适合查找特定文件，模糊搜索结果更全面',
   '链接失效可点击「已失效」标签查看状态，支持复制链接分享',
   '搜不到时试试同义词，如「教程」换「课程」「讲义」「笔记」',
-  '「短剧」搜索关键词尽量完整，第一次搜不到时，可重复搜索一遍',
+  '「短剧」搜索关键词尽量完整，建议去掉「第X季」、「X集」之类描述',
   '搜索关键词太长太精确，可能导致匹配不到，可减少关键词重新搜索',
 ];
 const showAllTips = ref(false);
@@ -1096,7 +1109,64 @@ function visibleSorted(items: any[]) {
   from { opacity: 0; transform: translateY(10px) scale(0.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+  /* 免责声明 */
+.disclaimer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
  
+.disclaimer-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 6px;
+}
+ 
+.disclaimer-title {
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-right: 2px;
+}
+ 
+.disclaimer-item::before {
+  content: "·";
+  margin-right: 4px;
+  opacity: 0.5;
+}
+ 
+.disclaimer-footer {
+  padding-top: 2px;
+  border-top: 1px solid var(--border-light);
+  margin-top: 2px;
+}
+ 
+.disclaimer-email {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 122, 109, 0.25);
+  transition: border-color var(--transition-fast);
+}
+ 
+.disclaimer-email:hover {
+  border-color: var(--primary);
+}
+ 
+/* 移动端 */
+@media (max-width: 640px) {
+  .disclaimer { font-size: 10px; padding: 8px 12px; }
+  .disclaimer-main { flex-direction: column; gap: 0; }
+  .disclaimer-item::before { content: ""; margin: 0; }
+}
+  
 /* 移动端 */
 @media (max-width: 640px) {
   .search-tip-text { font-size: 11px; }
