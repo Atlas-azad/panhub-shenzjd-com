@@ -36,14 +36,14 @@ function extractAipanLinks(html: string): Link[] {
 /** 从搜索结果页 HTML 提取详情页链接 */
 function parseSearchPage(html: string): { url: string; title: string }[] {
   const items: { url: string; title: string }[] = [];
-  // 匹配 <a href="/xxx.html"> 或 <a href="https://duanju.aipan.me/xxx.html">
-  const regex = /<a[^>]*href=["']((?:\/|https?:\/\/duanju\.aipan\.me\/)[^"']*\.html?)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  // 匹配 /drama/{id} 格式的链接
+  const regex = /<a[^>]*href=["']((?:\/drama\/|https?:\/\/duanju\.aipan\.me\/drama\/)[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   let m;
   while ((m = regex.exec(html)) !== null) {
     let url = m[1].trim();
     if (url.startsWith("/")) url = BASE + url;
-    const title = cleanHTML(m[2]).trim().slice(0, 200);
-    if (title && url.includes("aipan.me")) {
+    const title = cleanHTML(m[2]).replace(/\s+/g, " ").trim().slice(0, 200);
+    if (title && url.includes("/drama/")) {
       items.push({ url, title });
     }
   }
