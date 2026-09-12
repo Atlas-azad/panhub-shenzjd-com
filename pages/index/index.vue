@@ -439,27 +439,30 @@ function visibleItems(type: string, items: any[]) {
 function sortItems(items: any[]) {
   const keyword = (kw.value || "").trim().toLowerCase();
   const kwWords = keyword.split(/\s+/).filter(Boolean);
+  const strip = (s: string) => s.replace(/[^\p{L}\p{N}]/gu, "").toLowerCase();
+  const strippedKw = strip(keyword);
+  const strippedWords = kwWords.map(strip).filter(w => w.length >= 2);
+ 
   return [...items].sort((a, b) => {
-    const scoreA = itemRelevance(a, keyword, kwWords);
-    const scoreB = itemRelevance(b, keyword, kwWords);
+    const scoreA = itemScore(a, strippedKw, strippedWords);
+    const scoreB = itemScore(b, strippedKw, strippedWords);
     if (scoreA !== scoreB) return scoreB - scoreA;
     return new Date(b?.datetime || "1970-01-01").getTime() -
            new Date(a?.datetime || "1970-01-01").getTime();
   });
 }
  
-function itemRelevance(item: any, kwLower: string, kwWords: string[]): number {
-  const title = (item?.title || "").toLowerCase();
-  const content = (item?.content || "").toLowerCase();
+function itemScore(item: any, strippedKw: string, strippedWords: string[]): number {
+  const strip = (s: string) => s.replace(/[^\p{L}\p{N}]/gu, "").toLowerCase();
+  const text = (item?.note || "").toLowerCase();
+  const strippedText = strip(text);
   let score = 0;
-  if (title.includes(kwLower)) score += 100;
-  if (content.includes(kwLower)) score += 50;
-  for (const word of kwWords) {
-    if (title.includes(word)) score += 20;
-    if (content.includes(word)) score += 10;
+  if (strippedText.includes(strippedKw)) score += 100;
+  for (const word of strippedWords) {
+    if (strippedText.includes(word)) score += 20;
   }
-  if (title.includes(kwLower)) {
-    score += Math.max(0, 50 - title.length);
+  if (strippedText.includes(strippedKw)) {
+    score += Math.max(0, 50 - text.length);
   }
   return score;
 }
