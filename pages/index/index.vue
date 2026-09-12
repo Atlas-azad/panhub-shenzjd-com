@@ -38,6 +38,11 @@
             <span class="hero-stat-value">去重</span>
             <span class="hero-stat-label">智能整理</span>
           </div>
+           <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <span class="hero-stat-value">排序</span>
+            <span class="hero-stat-label">相关优先</span>
+          </div>
         </div>
       </header>
     </div>
