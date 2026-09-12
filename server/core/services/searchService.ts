@@ -28,6 +28,7 @@ function isMagnetLink(link: { type?: string; url?: string } | undefined | null):
 }
 
  
+ 
 /** 相关性评分：标题/内容与关键词的匹配程度，分数越高越相关 */
 function relevanceScore(
   result: SearchResult,
@@ -37,25 +38,16 @@ function relevanceScore(
   const title = (result.title || "").toLowerCase();
   const content = (result.content || "").toLowerCase();
   let score = 0;
- 
-  // 完全包含关键词，加分最多
   if (title.includes(kwLower)) score += 100;
   if (content.includes(kwLower)) score += 50;
- 
-  // 逐词匹配
   for (const word of kwWords) {
     if (title.includes(word)) score += 20;
     if (content.includes(word)) score += 10;
   }
- 
-  // 标题越短越精准（同样匹配度下，短标题更可能是精确结果）
   if (title.includes(kwLower)) {
     score += Math.max(0, 50 - title.length);
   }
- 
-  // 有链接的优先
   if (result.links && result.links.length > 0) score += 5;
- 
   return score;
 }
 
@@ -579,21 +571,19 @@ export class SearchService {
       signal
     );
 
-        const merged: SearchResult[] = [];
+    const merged: SearchResult[] = [];
     for (const arr of resultsByPlugin) {
       if (Array.isArray(arr)) {
         merged.push(...arr);
       }
     }
  
-    // 按相关性排序：标题/内容与关键词匹配度越高排越前
+    // 按相关性排序：标题与关键词匹配度越高排越前
     if (merged.length > 0) {
       const kw = (keyword || "").trim().toLowerCase();
       const kwWords = kw.split(/\s+/).filter(Boolean);
       merged.sort((a, b) => {
-        const scoreA = relevanceScore(a, kw, kwWords);
-        const scoreB = relevanceScore(b, kw, kwWords);
-        return scoreB - scoreA;
+        return relevanceScore(b, kw, kwWords) - relevanceScore(a, kw, kwWords);
       });
     }
  
