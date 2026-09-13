@@ -83,6 +83,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const allChannels = getChannelConfigService().getSnapshot().defaultChannels;
   const src = (q.src as any) || "all";
+  const magnetMode = String(q.magnet).trim() === "1";
   // 2026-08-25 用户拍板：前端不传插件知识（插件在后端注册表，全部启用）。
   // 前端 URL 里即使带 plugins 参数也忽略（防御：插件选择权完全在后端）。
   const cloudTypes = parseList(q.cloud_types);
@@ -222,6 +223,7 @@ export default defineEventHandler(async (event: H3Event) => {
                 undefined,
                 // 深搜只允许最后一批触发（防每批都翻页 CPU 炸弹）
                 { ...(ext || {}), __deep_search: task.index === totalBatches - 1 },
+                magnetMode,
                 signal
               );
               if (w.length > 0) warnings.push(...w);
@@ -241,6 +243,7 @@ export default defineEventHandler(async (event: H3Event) => {
               [enabledPlugins[task.index]],
               cloudTypes,
               ext || {},
+              magnetMode,
               signal
             );
             if (w.length > 0) warnings.push(...w);
