@@ -60,6 +60,20 @@
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
 
+        <!-- 网盘/磁力 切换 Tab -->
+    <div v-if="searched" class="search-tab-bar">
+      <button
+        :class="['tab-btn', { active: searchTab === 'pan' }]"
+        @click="switchToPan">
+        🔗 网盘资源
+      </button>
+      <button
+        :class="['tab-btn', { active: searchTab === 'magnet' }]"
+        @click="switchToMagnet">
+        🧲 磁力链接
+      </button>
+    </div>
+    
             <!-- 搜索小贴士 -->
     <div class="search-tip">
       <svg class="search-tip-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -314,6 +328,8 @@ useHead({
 
 // 搜索相关状态
 const kw = ref("");
+// 磁力/网盘 Tab 切换
+const searchTab = ref<"pan" | "magnet">("pan");
 const placeholder =
   "搜索网盘资源，支持百度云、阿里云盘、夸克网盘、115网盘、迅雷云盘、天翼云盘、123网盘、移动云盘、UC网盘等";
 
@@ -344,8 +360,8 @@ function getSearchOptions() {
   return {
     apiBase,
     keyword: kw.value,
+    magnetMode: searchTab.value === "magnet",
     settings: {
-      // 2026-08-25：插件/频道知识全在后端，前端设置只保留并发与超时
       concurrency: settings.value.concurrency,
       pluginTimeoutMs: settings.value.pluginTimeoutMs,
     },
@@ -401,6 +417,25 @@ async function onSearch() {
   await doSearch();
 }
 
+// 切换到磁力 Tab
+async function switchToMagnet() {
+  if (searchTab.value === "magnet") return;
+  searchTab.value = "magnet";
+  if (kw.value.trim()) {
+    await onSearch();
+  }
+}
+ 
+// 切换到网盘 Tab
+async function switchToPan() {
+  if (searchTab.value === "pan") return;
+  searchTab.value = "pan";
+  if (kw.value.trim()) {
+    await onSearch();
+  }
+}
+
+  
 // 快速搜索
 async function quickSearch(keyword: string) {
   kw.value = keyword;
@@ -1183,5 +1218,27 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
+}
+
+  .search-tab-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 12px 0;
+}
+.tab-btn {
+  padding: 8px 20px;
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+.tab-btn.active {
+  background: #6366f1;
+  color: #fff;
+  border-color: #6366f1;
 }
 </style>
