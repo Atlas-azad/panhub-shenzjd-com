@@ -59,17 +59,6 @@
       @reset="fullReset"
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
-
-        <!-- 磁力链接开关 -->
-    <div v-if="searched" class="magnet-toggle">
-      <label class="toggle-label">
-        <input type="checkbox" v-model="showMagnet" class="toggle-input" />
-        <span class="toggle-track">
-          <span class="toggle-thumb"></span>
-        </span>
-        <span class="toggle-text">显示磁力链接</span>
-      </label>
-    </div>
     
             <!-- 搜索小贴士 -->
     <div class="search-tip">
@@ -325,8 +314,7 @@ useHead({
 
 // 搜索相关状态
 const kw = ref("");
-const searchTab = ref<"pan" | "magnet">("pan");
-const showMagnet = ref(false);
+// 磁力/网盘 Tab 切换
 const placeholder =
   "搜索网盘资源，支持百度云、阿里云盘、夸克网盘、115网盘、迅雷云盘、天翼云盘、123网盘、移动云盘、UC网盘等";
 
@@ -357,19 +345,12 @@ function getSearchOptions() {
   return {
     apiBase,
     keyword: kw.value,
-    magnetMode: searchTab.value === "magnet",
     settings: {
       concurrency: settings.value.concurrency,
       pluginTimeoutMs: settings.value.pluginTimeoutMs,
     },
   };
 }
-
-watch(showMagnet, async () => {
-  if (kw.value.trim() && searched.value) {
-    await onSearch();
-  }
-});
 
 // 执行实际搜索逻辑
 async function doSearch() {
@@ -1203,50 +1184,5 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
-}
-
-  .magnet-toggle {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0 16px;
-  margin: -4px 0 8px;
-}
-.toggle-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  user-select: none;
-}
-.toggle-input {
-  display: none;
-}
-.toggle-track {
-  width: 36px;
-  height: 20px;
-  background: var(--border-light, #d1d5db);
-  border-radius: 10px;
-  position: relative;
-  transition: background 0.2s;
-}
-.toggle-input:checked + .toggle-track {
-  background: var(--accent-primary, #6366f1);
-}
-.toggle-thumb {
-  width: 16px;
-  height: 16px;
-  background: #fff;
-  border-radius: 50%;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  transition: transform 0.2s;
-}
-.toggle-input:checked + .toggle-track .toggle-thumb {
-  transform: translateX(16px);
-}
-.toggle-text {
-  font-size: 13px;
-  color: var(--text-secondary, #6b7280);
 }
 </style>
