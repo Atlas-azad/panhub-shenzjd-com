@@ -80,7 +80,19 @@ export default defineEventHandler(async (event: H3Event) => {
       }
     }
   }
+ 
+const config = useRuntimeConfig();
+// 验证磁力链接密令
+const magnetKey = (ext as any)?.__magnet_key || '';
+const magnetEnabled = 
+  !!config.magnetSecret && 
+  magnetKey === config.magnetSecret;
+ 
+// 把结果塞回 ext，传给 searchService
+if (!ext) ext = {};
+(ext as any).__magnet_enabled = magnetEnabled;
 
+  
   const allChannels = getChannelConfigService().getSnapshot().defaultChannels;
   const src = (q.src as any) || "all";
   // 2026-08-25 用户拍板：前端不传插件知识（插件在后端注册表，全部启用）。
