@@ -59,28 +59,6 @@
       @reset="fullReset"
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
-
-<!-- 磁力链接密令入口 -->
-<div class="magnet-section">
-  <div v-if="!magnetKey && !showMagnetInput" class="magnet-hint">
-    <button @click="showMagnetInput = true" class="magnet-hint-btn">
-      🔓 高级模式
-    </button>
-  </div>
-  <div v-if="showMagnetInput" class="magnet-input-row">
-    <input
-      v-model="magnetKeyInput"
-      placeholder="输入密令开启磁力链接搜索"
-      type="password"
-      class="magnet-input"
-    />
-    <button @click="submitMagnetKey" class="magnet-submit">确认</button>
-  </div>
-  <div v-if="magnetKey" class="magnet-status">
-    🧲 磁力链接已开启
-    <button @click="clearMagnetKey" class="magnet-clear">关闭</button>
-  </div>
-</div>
     
             <!-- 搜索小贴士 -->
     <div class="search-tip">
@@ -232,22 +210,6 @@
 </template>
 
 <script setup lang="ts">
-const { magnetKey, setKey, clearKey } = useMagnetKey();
-const showMagnetInput = ref(false);
-const magnetKeyInput = ref('');
- 
-function submitMagnetKey() {
-  if (magnetKeyInput.value.trim()) {
-    setKey(magnetKeyInput.value.trim());
-    showMagnetInput.value = false;
-    magnetKeyInput.value = '';
-  }
-}
- 
-function clearMagnetKey() {
-  clearKey();
-}
-  
 import { ref, onMounted, nextTick } from "vue";
 import { PLATFORM_INFO } from "~/config/plugins";
 import { isBotUA } from "~/utils/botUA";
@@ -1223,14 +1185,4 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
 }
-
-  .magnet-section { text-align: center; margin: 8px 0; }
-.magnet-hint-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 13px; }
-.magnet-hint-btn:hover { color: #22c55e; }
-.magnet-input-row { display: flex; justify-content: center; gap: 8px; align-items: center; }
-.magnet-input { padding: 4px 8px; border: 1px solid #444; border-radius: 4px; background: #1a1a1a; color: #eee; font-size: 13px; width: 200px; }
-.magnet-submit { padding: 4px 12px; border: none; border-radius: 4px; background: #22c55e; color: #000; cursor: pointer; font-size: 13px; }
-.magnet-status { color: #22c55e; font-size: 13px; }
-.magnet-clear { margin-left: 8px; background: none; border: 1px solid #555; color: #aaa; cursor: pointer; font-size: 12px; padding: 2px 8px; border-radius: 4px; }
-  
 </style>
