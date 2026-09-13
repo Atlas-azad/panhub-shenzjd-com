@@ -74,7 +74,18 @@ export default defineEventHandler(async (event) => {
       }
     }
   }
-
+ 
+const config = useRuntimeConfig();
+// 验证磁力链接密令
+const magnetKey = (ext as any)?.__magnet_key || '';
+const magnetEnabled = 
+  !!config.magnetSecret && 
+  magnetKey === config.magnetSecret;
+ 
+// 把结果塞回 ext，传给 searchService
+if (!ext) ext = {};
+(ext as any).__magnet_enabled = magnetEnabled;
+  
   const requestedChannels = parseList(q.channels);
   const { batch, batchSize, countOnly } = parseBatchQuery(q as any);
 
@@ -91,6 +102,8 @@ export default defineEventHandler(async (event) => {
     return resp;
   }
 
+
+  
   // 决定本次要搜的频道（优先级：前端显式 channels > batch 切片 > 一次性全量）
   // 切片逻辑在 batchChannels.ts，便于测试
   const allChannels = getChannelConfigService().getSnapshot().defaultChannels;
