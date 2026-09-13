@@ -73,6 +73,7 @@ export default defineNuxtConfig({
     pluginTimeoutMs: channelsConfig.pluginTimeoutMs,
     cacheEnabled: true,
     cacheTtlMinutes: channelsConfig.cacheTtlMinutes,
+    magnetSecret: process.env.MAGNET_SECRET || '',
     public: {
       apiBase: "/api",
       siteUrl: "https://panhub.shenzjd.com",
