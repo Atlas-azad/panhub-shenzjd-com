@@ -173,7 +173,6 @@ export class SearchService {
     plugins: string[] | undefined,
     cloudTypes: string[] | undefined,
     ext: Record<string, any> | undefined,
-    magnetMode?: boolean,
     signal?: AbortSignal
   ): Promise<{ response: SearchResponse; warnings: WarningInfo[] }> {
     // 客户端已断开，直接返回空结果
@@ -273,24 +272,22 @@ export class SearchService {
           });
 
     const filteredForResults: SearchResult[] = [];
-      for (const result of relevantResults) {
-        // 磁力模式关闭时剔除磁力链接；开启时保留全部
-        if (!magnetMode) {
-          stripMagnetLinks(result);
-        }
-        const hasTime = !!result.datetime;
-        const hasLinks = Array.isArray(result.links) && result.links.length > 0;
-        if (!hasLinks && !hasTime) continue;
-        if (hasTime || hasLinks) {
-          filteredForResults.push(result);
-        }
+    for (const result of relevantResults) {
+      // 统一剔除磁力链接（TG / 插件来源都覆盖）
+      const strippedMagnet = stripMagnetLinks(result);
+      const hasTime = !!result.datetime;
+      const hasLinks = Array.isArray(result.links) && result.links.length > 0;
+      // 原本只有磁力链接的资源（如种子站点结果）过滤后无链接，整条不展示
+      if (strippedMagnet && !hasLinks) continue;
+      if (hasTime || hasLinks) {
+        filteredForResults.push(result);
       }
+    }
 
-     const mergedLinks = this.mergeResultsByType(
+    const mergedLinks = this.mergeResultsByType(
       relevantResults,
       keyword,
-      cloudTypes,
-      magnetMode
+      cloudTypes
     );
 
     let total = 0;
@@ -661,11 +658,10 @@ export class SearchService {
     arr.sort((x, y) => toTime(y.datetime) - toTime(x.datetime));
   }
 
-    private mergeResultsByType(
+  private mergeResultsByType(
     results: SearchResult[],
     _keyword: string,
-    cloudTypes?: string[],
-    magnetMode?: boolean
+    cloudTypes?: string[]
   ): MergedLinks {
     const allow =
       cloudTypes && cloudTypes.length > 0
@@ -677,8 +673,8 @@ export class SearchService {
       if (!Array.isArray(result.links)) continue;
       for (const link of result.links) {
         if (!link || typeof link.url !== "string") continue;
-        // 磁力模式关闭时剔除；开启时保留
-        if (!magnetMode && isMagnetLink(link)) continue;
+        // 磁力链接一律不进聚合结果（双保险，防上游 type 标注异常）
+        if (isMagnetLink(link)) continue;
         const type = (link.type || "").toLowerCase();
         if (allow && !allow.has(type)) continue;
         if (!out[type]) out[type] = [];
