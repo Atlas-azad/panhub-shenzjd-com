@@ -22,7 +22,7 @@
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/uc.png" alt="" />UC</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/123.png" alt="" />123</span>
           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/mobile.png" alt="" />移动</span>
-           <span class="hero-platform"><img class="hero-platform-icon" src="/icons/magnet.png" alt="" />磁力</span>
+           <span class="hero-platform"><img class="hero-platform-icon" src="/magnet.png" alt="" />磁力</span>
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
