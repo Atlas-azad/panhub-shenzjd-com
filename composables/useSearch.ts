@@ -22,7 +22,6 @@ const MAX_RESULTS_PER_ROUND = 90;
 export interface SearchOptions {
   apiBase: string;
   keyword: string;
-  magnetMode?: boolean;
   settings: {
     concurrency: number;
     pluginTimeoutMs: number;
@@ -441,7 +440,6 @@ export function useSearch() {
     const q = new URLSearchParams({
       kw: keyword,
     });
-    if (options.magnetMode) q.set("magnet", "1");
     // 后端自己计数停止：首搜不传（后端默认 90），「继续」传目标总数
     if (maxResults != null && maxResults > 0) q.set("maxResults", String(maxResults));
     // 断点续跑（2026-08-25）：回传已完成任务索引 + 前端已有结果数，
