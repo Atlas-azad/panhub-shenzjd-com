@@ -81,7 +81,6 @@ export default defineEventHandler(async (event: H3Event) => {
     }
   }
  
-const config = useRuntimeConfig();
 // 验证磁力链接密令
 const magnetKey = (ext as any)?.__magnet_key || '';
 const magnetEnabled = 
