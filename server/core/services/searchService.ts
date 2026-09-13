@@ -273,8 +273,8 @@ export class SearchService {
 
     const filteredForResults: SearchResult[] = [];
     for (const result of relevantResults) {
-      // 磁力链接过滤（可通过环境变量 NITRO_ENABLE_MAGNET=1 跳过）
-      const strippedMagnet = process.env.NITRO_ENABLE_MAGNET === "1" ? false : stripMagnetLinks(result);
+      const magnetEnabled = (ext as any)?.__magnet_enabled === true;
+      const strippedMagnet = magnetEnabled ? false : stripMagnetLinks(result);
       const hasTime = !!result.datetime;
       const hasLinks = Array.isArray(result.links) && result.links.length > 0;
       // 原本只有磁力链接的资源（如种子站点结果）过滤后无链接，整条不展示
@@ -284,10 +284,12 @@ export class SearchService {
       }
     }
 
+    const magnetEnabled = (ext as any)?.__magnet_enabled === true;
     const mergedLinks = this.mergeResultsByType(
       relevantResults,
       keyword,
-      cloudTypes
+      cloudTypes,
+      magnetEnabled
     );
 
     let total = 0;
@@ -661,7 +663,8 @@ export class SearchService {
   private mergeResultsByType(
     results: SearchResult[],
     _keyword: string,
-    cloudTypes?: string[]
+    cloudTypes?: string[],
+    magnetEnabled?: boolean
   ): MergedLinks {
     const allow =
       cloudTypes && cloudTypes.length > 0
@@ -673,8 +676,7 @@ export class SearchService {
       if (!Array.isArray(result.links)) continue;
       for (const link of result.links) {
         if (!link || typeof link.url !== "string") continue;
-        // 磁力链接过滤（双保险，可通过 NITRO_ENABLE_MAGNET=1 跳过）
-        if (isMagnetLink(link) && process.env.NITRO_ENABLE_MAGNET !== "1") continue;
+        if (isMagnetLink(link) && !magnetEnabled) continue;
         const type = (link.type || "").toLowerCase();
         if (allow && !allow.has(type)) continue;
         if (!out[type]) out[type] = [];
