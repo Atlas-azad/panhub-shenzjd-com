@@ -60,18 +60,15 @@
       @pause="pauseSearch"
       @continue="handleContinueSearch" />
 
-        <!-- 网盘/磁力 切换 Tab -->
-    <div v-if="searched" class="search-tab-bar">
-      <button
-        :class="['tab-btn', { active: searchTab === 'pan' }]"
-        @click="switchToPan">
-        🔗 网盘资源
-      </button>
-      <button
-        :class="['tab-btn', { active: searchTab === 'magnet' }]"
-        @click="switchToMagnet">
-        🧲 磁力链接
-      </button>
+        <!-- 磁力链接开关 -->
+    <div v-if="searched" class="magnet-toggle">
+      <label class="toggle-label">
+        <input type="checkbox" v-model="showMagnet" class="toggle-input" />
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+        <span class="toggle-text">显示磁力链接</span>
+      </label>
     </div>
     
             <!-- 搜索小贴士 -->
@@ -328,8 +325,7 @@ useHead({
 
 // 搜索相关状态
 const kw = ref("");
-// 磁力/网盘 Tab 切换
-const searchTab = ref<"pan" | "magnet">("pan");
+const showMagnet = ref(false);
 const placeholder =
   "搜索网盘资源，支持百度云、阿里云盘、夸克网盘、115网盘、迅雷云盘、天翼云盘、123网盘、移动云盘、UC网盘等";
 
@@ -367,6 +363,12 @@ function getSearchOptions() {
     },
   };
 }
+
+watch(showMagnet, async () => {
+  if (kw.value.trim() && searched.value) {
+    await onSearch();
+  }
+});
 
 // 执行实际搜索逻辑
 async function doSearch() {
@@ -415,24 +417,6 @@ async function onSearch() {
   // 自愿支持弹窗：每搜索 3 次自愿弹出一次（fire-and-forget，不阻塞本次搜索）
   maybeShowUnlockAd();
   await doSearch();
-}
-
-// 切换到磁力 Tab
-async function switchToMagnet() {
-  if (searchTab.value === "magnet") return;
-  searchTab.value = "magnet";
-  if (kw.value.trim()) {
-    await onSearch();
-  }
-}
- 
-// 切换到网盘 Tab
-async function switchToPan() {
-  if (searchTab.value === "pan") return;
-  searchTab.value = "pan";
-  if (kw.value.trim()) {
-    await onSearch();
-  }
 }
 
   
@@ -1220,25 +1204,48 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer-contact { font-size: 10px; }
 }
 
-  .search-tab-bar {
+  .magnet-toggle {
   display: flex;
+  justify-content: flex-end;
+  padding: 0 16px;
+  margin: -4px 0 8px;
+}
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-  justify-content: center;
-  margin: 12px 0;
-}
-.tab-btn {
-  padding: 8px 20px;
-  border: 1px solid var(--border-light);
-  border-radius: 20px;
-  background: var(--bg-primary);
-  color: var(--text-secondary);
   cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s;
+  user-select: none;
 }
-.tab-btn.active {
-  background: #6366f1;
-  color: #fff;
-  border-color: #6366f1;
+.toggle-input {
+  display: none;
+}
+.toggle-track {
+  width: 36px;
+  height: 20px;
+  background: var(--border-light, #d1d5db);
+  border-radius: 10px;
+  position: relative;
+  transition: background 0.2s;
+}
+.toggle-input:checked + .toggle-track {
+  background: var(--accent-primary, #6366f1);
+}
+.toggle-thumb {
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+.toggle-input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(16px);
+}
+.toggle-text {
+  font-size: 13px;
+  color: var(--text-secondary, #6b7280);
 }
 </style>
