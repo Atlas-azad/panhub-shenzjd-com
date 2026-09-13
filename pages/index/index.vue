@@ -325,6 +325,7 @@ useHead({
 
 // 搜索相关状态
 const kw = ref("");
+const searchTab = ref<"pan" | "magnet">("pan");
 const showMagnet = ref(false);
 const placeholder =
   "搜索网盘资源，支持百度云、阿里云盘、夸克网盘、115网盘、迅雷云盘、天翼云盘、123网盘、移动云盘、UC网盘等";
