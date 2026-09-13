@@ -258,11 +258,9 @@ export function useSearch() {
       const ac = new AbortController();
       activeControllers.push(ac);
       try {
-        const magnetKey = typeof localStorage !== 'undefined' ? localStorage.getItem('panhub_magnet_key') || '' : '';
-        const extParam = JSON.stringify({
+          const extParam = JSON.stringify({
           __plugin_timeout_ms: pluginTimeoutMs,
           __deep_search: deep,
-          __magnet_key: magnetKey,
         });
         const q = new URLSearchParams({
           kw: keyword,
@@ -442,11 +440,6 @@ export function useSearch() {
     const q = new URLSearchParams({
       kw: keyword,
     });
-    // 带上磁力链接密令
-    const magnetKey = typeof localStorage !== 'undefined' ? localStorage.getItem('panhub_magnet_key') || '' : '';
-    if (magnetKey) {
-      q.set("ext", JSON.stringify({ __magnet_key: magnetKey }));
-    }
     // 后端自己计数停止：首搜不传（后端默认 90），「继续」传目标总数
     if (maxResults != null && maxResults > 0) q.set("maxResults", String(maxResults));
     // 断点续跑（2026-08-25）：回传已完成任务索引 + 前端已有结果数，
