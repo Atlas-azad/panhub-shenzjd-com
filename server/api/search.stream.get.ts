@@ -161,13 +161,19 @@ export default defineEventHandler(async (event: H3Event) => {
       // 插件在后端注册表里，全部启用，与频道一样后端化）。
       // service.getPluginManager().getPlugins() 返回全部已注册插件，
       // 按名字切片交给 searchWithWarnings 逐源执行。
+      const magnetPluginNames = new Set(["solidtorrents", "torrentgalaxy", "x1337x"]);
+ 
       const enabledPlugins =
         src === "all" || src === "plugin"
           ? service
               .getPluginManager()
               .getPlugins()
               .map((p) => p.name())
-              .filter(Boolean)
+              .filter((name) => {
+                if (!name) return false;
+                if (!magnetMode && magnetPluginNames.has(name)) return false;
+                return true;
+              })
           : [];
 
       // 构建任务列表。gidx 为全局唯一任务索引（tg 批 0..N-1、plugin N..N+M-1），
