@@ -30,28 +30,21 @@
  
 <!-- 页脚 -->
 <footer class="site-footer">
-  <!-- 站长推荐 · 轮播 -->
+  <!-- 站长推荐 · 双行向上滚动 -->
   <div class="footer-reco">
     <span class="footer-reco__label">💡 站长推荐</span>
     <div class="footer-reco__viewport">
-      <Transition name="reco-slide" mode="out-in">
+      <div class="footer-reco__track" :style="recoTrackStyle">
         <a
-          :key="currentRecoIdx"
-          :href="recoItems[currentRecoIdx].link"
+          v-for="item in recoDisplayItems"
+          :key="item._key"
+          :href="item.link"
           target="_blank"
           rel="noopener noreferrer nofollow"
           class="footer-reco__link"
-        >{{ recoItems[currentRecoIdx].text }}</a>
-      </Transition>
+        >{{ item.text }}</a>
+      </div>
     </div>
-    <!-- 呼吸灯按钮：点击下一条 -->
-    <button
-      class="footer-reco__pulse"
-      type="button"
-      @click="nextReco"
-      aria-label="下一条推荐"
-      title="下一条"
-    ></button>
   </div>
  
   <!-- 原有的隐私政策 + 版权 -->
@@ -105,21 +98,47 @@ useHead({
  
 const { loadSettings } = useSettings();
  
-// ── 站长推荐轮播 ──
+// ── 站长推荐：双行向上滚动轮播 ──
 const recoItems = [
   { text: '硅基流动词元（Token）供应平台，注册认证即得￥16全平台通用代金券', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
   { text: '✨宝可梦加速器，高频稳定VPN体验，一键连接全球网络',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
-  { text: 'Racknerd美国超高性价比VPS、服务器，优惠码：15OFFDEDI 永久享受85折优惠',          link: 'https://my.racknerd.com/aff.php?aff=8231' },
+  { text: 'Racknerd美国超高性价比VPS、服务器，优惠码：15OFFDEDI 永久享受85折优惠', link: 'https://my.racknerd.com/aff.php?aff=8231' },
   { text: '115 网盘 VIP 年费限时立减 →',        link: 'https://example.com/115' },
   // 想加多少加多少，一行一条
 ]
-const currentRecoIdx = ref(0)
-const RECO_INTERVAL_MS = 5000 // 4 秒轮播
+const RECO_INTERVAL_MS = 4000   // 4 秒滚一次
+const RECO_LINE_H = 20          // 每行高度 px，和 CSS 保持一致
+const recoWindowStart = ref(0)  // 当前视口顶部的 item 索引
+const recoOffset = ref(0)       // translateY 偏移量
+const recoSliding = ref(false)  // 是否正在播放滑动动画
 let recoTimer: ReturnType<typeof setInterval> | null = null
  
-/** 切到下一条推荐 */
-function nextReco() {
-  currentRecoIdx.value = (currentRecoIdx.value + 1) % recoItems.length
+// 渲染 3 条：视口内 2 条 + 下方预渲染 1 条（供滑入用）
+const recoDisplayItems = computed(() => {
+  const result = []
+  for (let i = 0; i < 3; i++) {
+    const idx = (recoWindowStart.value + i) % recoItems.length
+    result.push({ ...recoItems[idx], _key: `reco-${recoWindowStart.value + i}` })
+  }
+  return result
+})
+ 
+// track 容器的 inline style
+const recoTrackStyle = computed(() => ({
+  transform: `translateY(${recoOffset.value}px)`,
+  transition: recoSliding.value ? 'transform 0.4s ease' : 'none',
+}))
+ 
+/** 向上滚动一步：顶行滑出，底行新进 */
+function recoRotate() {
+  recoSliding.value = true
+  recoOffset.value = -RECO_LINE_H            // 整体上移一行
+  setTimeout(() => {
+    // 动画结束：瞬间重置位置 + 推进窗口，视觉无缝（新数据 offset:0 = 旧数据 offset:-LINE_H）
+    recoSliding.value = false
+    recoWindowStart.value = (recoWindowStart.value + 1) % recoItems.length
+    recoOffset.value = 0
+  }, 420) // 略大于 400ms transition，确保动画完成
 }
  
 onMounted(() => {
@@ -127,9 +146,9 @@ onMounted(() => {
   loadAnnouncements();
   window.addEventListener("show-support-modal", onShowSupportModal);
  
-  // 启动推荐轮播定时器（4 秒一条）
-  if (recoItems.length > 1) {
-    recoTimer = setInterval(nextReco, RECO_INTERVAL_MS)
+  // 启动推荐轮播
+  if (recoItems.length > 2) {
+    recoTimer = setInterval(recoRotate, RECO_INTERVAL_MS)
   }
 });
  
@@ -473,106 +492,53 @@ function dismissAnnouncement() {
   to { transform: translateY(0); opacity: 1; }
 }
  
-/* 站长推荐轮播 */
+/* ===== 站长推荐：双行向上滚动轮播 ===== */
+ 
+/* 外层容器：label 在左，视口在右 */
 .footer-reco {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   padding: 6px 0 10px;
   font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
   max-width: 100%;
 }
 .footer-reco__label {
   color: var(--text-tertiary, #9ca3af);
   flex-shrink: 0;
+  line-height: 20px;
+  white-space: nowrap;
 }
+ 
+/* 视口：只露出 2 行（40px），多余裁掉 */
 .footer-reco__viewport {
   flex: 0 1 auto;
   min-width: 0;
+  height: 40px;       /* 2 行 × 20px */
   overflow: hidden;
-  height: 20px;
-  display: flex;
-  align-items: center;
 }
+ 
+/* 轨道：纵排 3 条，由 JS 控制 translateY 实现滚动 */
+.footer-reco__track {
+  display: flex;
+  flex-direction: column;
+}
+ 
+/* 单条链接：固定行高 20px，超长省略 */
 .footer-reco__link {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--text-secondary, #6b7280);
   text-decoration: none;
   transition: color 0.2s;
-  white-space: nowrap;
 }
 .footer-reco__link:hover {
   color: var(--accent, #2563eb);
-}
- 
-/* 呼吸灯 */
-.footer-reco__pulse {
-  flex-shrink: 0;
-  width: 4px;
-  height: 4px;
-  border: none;
-  border-radius: 50%;
-  padding: 0;
-  cursor: pointer;
-  background: var(--primary, #0f766e);
-  animation: recoPulse 3s ease-in-out infinite;
-  transition: background 0.2s;
-  margin-left: 1px;
-}
-.footer-reco__pulse:hover {
-  animation-duration: 1s;
-  background: var(--accent, #2563eb);
-}
-@keyframes recoPulse {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%      { opacity: 1;   transform: scale(1.3); }
-}
- 
-/* 移动端：纵排，文字换行 */
-@media (max-width: 640px) {
-  .footer-reco {
-    flex-direction: column;
-    align-items: center;
-    white-space: normal;
-    overflow: visible;
-    gap: 4px;
-    padding: 8px 16px 10px;
-    font-size: 12px;
-  }
-  .footer-reco__label {
-    /* label 和呼吸灯同一行 */
-  }
-  .footer-reco__viewport {
-    flex: none;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    text-align: center;
-  }
-  .footer-reco__link {
-    white-space: normal;
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .footer-reco__pulse {
-    display: none;
-  }
-}
- 
-/* 轮播滑动过渡 */
-.reco-slide-enter-active,
-.reco-slide-leave-active {
-  transition: all 0.35s ease;
-}
-.reco-slide-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
-}
-.reco-slide-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
 }
  
 /* 页脚法律行 */
@@ -581,5 +547,34 @@ function dismissAnnouncement() {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+ 
+/* 移动端适配 */
+@media (max-width: 640px) {
+  .footer-reco {
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 16px 10px;
+    font-size: 12px;
+  }
+  .footer-reco__label {
+    line-height: 18px;
+  }
+  .footer-reco__viewport {
+    flex: none;
+    width: 100%;
+    height: 36px;      /* 2 行 × 18px */
+  }
+  .footer-reco__link {
+    height: 18px;
+    line-height: 18px;
+    /* 手机端允许换行，超两行裁掉 */
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: unset;
+  }
 }
 </style>
