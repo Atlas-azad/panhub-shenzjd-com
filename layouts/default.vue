@@ -503,12 +503,41 @@ function dismissAnnouncement() {
 .footer-reco__link:hover {
   color: var(--accent, #2563eb);
 }
- 
+
+/* 移动端：推荐文字允许换行 */
+@media (max-width: 640px) {
+  .footer-reco {
+    flex-wrap: wrap;
+    white-space: normal;
+    overflow: visible;
+    gap: 2px 6px;
+    padding: 6px 8px 10px;
+    font-size: 12px;
+  }
+  .footer-reco__label {
+    order: 1;
+  }
+  .footer-reco__pulse {
+    order: 2;
+    margin-left: 0;
+  }
+  .footer-reco__viewport {
+    order: 3;
+    flex: 0 1 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .footer-reco__link {
+    white-space: normal;
+    word-break: break-all;
+  }
+}
+  
 /* 呼吸灯按钮：小圆点缓慢明暗脉动，hover 加速，点击切下一条 */
 .footer-reco__pulse {
   flex-shrink: 0;
-  width: 8px;
-  height: 8px;
+  width: 5px;          /* 8px → 5px */
+  height: 5px;         /* 8px → 5px */
   border: none;
   border-radius: 50%;
   padding: 0;
