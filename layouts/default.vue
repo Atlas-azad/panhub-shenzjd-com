@@ -44,6 +44,14 @@
         >{{ recoItems[currentRecoIdx].text }}</a>
       </Transition>
     </div>
+    <!-- 呼吸灯按钮：点击下一条 -->
+    <button
+      class="footer-reco__pulse"
+      type="button"
+      @click="nextReco"
+      aria-label="下一条推荐"
+      title="下一条"
+    ></button>
   </div>
  
   <!-- 原有的隐私政策 + 版权 -->
@@ -96,7 +104,7 @@ useHead({
 });
  
 const { loadSettings } = useSettings();
-
+ 
 // ── 站长推荐轮播 ──
 const recoItems = [
   { text: '硅基流动词元（Token）供应平台，注册认证即得￥16全平台通用代金券', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
@@ -106,16 +114,33 @@ const recoItems = [
   // 想加多少加多少，一行一条
 ]
 const currentRecoIdx = ref(0)
+const RECO_INTERVAL_MS = 4000 // 4 秒轮播
 let recoTimer: ReturnType<typeof setInterval> | null = null
-  
+ 
+/** 切到下一条推荐 */
+function nextReco() {
+  currentRecoIdx.value = (currentRecoIdx.value + 1) % recoItems.length
+}
+ 
 onMounted(() => {
   loadSettings();
   loadAnnouncements();
   window.addEventListener("show-support-modal", onShowSupportModal);
+ 
+  // 启动推荐轮播定时器（4 秒一条）
+  if (recoItems.length > 1) {
+    recoTimer = setInterval(nextReco, RECO_INTERVAL_MS)
+  }
 });
  
 onBeforeUnmount(() => {
   window.removeEventListener("show-support-modal", onShowSupportModal);
+ 
+  // 清理推荐轮播定时器
+  if (recoTimer) {
+    clearInterval(recoTimer)
+    recoTimer = null
+  }
 });
  
 // ===== 自定义支持弹窗 =====
@@ -447,8 +472,8 @@ function dismissAnnouncement() {
   from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-
-  /* 站长推荐轮播 */
+ 
+/* 站长推荐轮播 */
 .footer-reco {
   display: flex;
   align-items: center;
@@ -477,6 +502,29 @@ function dismissAnnouncement() {
 }
 .footer-reco__link:hover {
   color: var(--accent, #2563eb);
+}
+ 
+/* 呼吸灯按钮：小圆点缓慢明暗脉动，hover 加速，点击切下一条 */
+.footer-reco__pulse {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  cursor: pointer;
+  background: var(--primary, #0f766e);
+  animation: recoPulse 3s ease-in-out infinite;
+  transition: background 0.2s;
+  margin-left: 2px;
+}
+.footer-reco__pulse:hover {
+  animation-duration: 1s;
+  background: var(--accent, #2563eb);
+}
+@keyframes recoPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.25); }
 }
  
 /* 轮播滑动过渡 */
