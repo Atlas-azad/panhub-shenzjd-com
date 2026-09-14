@@ -99,9 +99,9 @@ const { loadSettings } = useSettings();
 
 // ── 站长推荐轮播 ──
 const recoItems = [
-  { text: '硅基流动-注册认证即得￥16全平台通用代金券 →', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
-  { text: '✨宝可梦加速器，高频稳定VPN体验 →',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
-  { text: '百度网盘超级会员 5 折起 →',          link: 'https://example.com/baidu' },
+  { text: '硅基流动词元（Token）供应平台，注册认证即得￥16全平台通用代金券', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
+  { text: '✨宝可梦加速器，高频稳定VPN体验，一键连接全球网络',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
+  { text: 'Racknerd美国超高性价比VPS、服务器，优惠码：15OFFDEDI 永久享受85折优惠',          link: 'https://my.racknerd.com/aff.php?aff=8231' },
   { text: '115 网盘 VIP 年费限时立减 →',        link: 'https://example.com/115' },
   // 想加多少加多少，一行一条
 ]
@@ -314,6 +314,7 @@ function dismissAnnouncement() {
 .site-footer {
   display: flex;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   gap: 8px;
   padding: 28px 16px 36px;
