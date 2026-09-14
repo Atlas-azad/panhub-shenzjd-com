@@ -446,4 +446,57 @@ function dismissAnnouncement() {
   from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+
+  /* 站长推荐轮播 */
+.footer-reco {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0 10px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.footer-reco__label {
+  color: var(--text-tertiary, #9ca3af);
+  flex-shrink: 0;
+}
+.footer-reco__viewport {
+  position: relative;
+  overflow: hidden;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.footer-reco__link {
+  color: var(--text-secondary, #6b7280);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-reco__link:hover {
+  color: var(--accent, #2563eb);
+}
+ 
+/* 轮播滑动过渡 */
+.reco-slide-enter-active,
+.reco-slide-leave-active {
+  transition: all 0.35s ease;
+}
+.reco-slide-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.reco-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+ 
+/* 页脚法律行 */
+.footer-legal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 </style>
