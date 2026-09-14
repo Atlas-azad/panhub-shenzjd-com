@@ -105,9 +105,9 @@ const recoItems = [
   { text: '【RN】美国超高性价比服务器，优惠码:15OFFDEDI', link: 'https://my.racknerd.com/aff.php?aff=8231' },
   { text: '【腾讯云】AI焕新 2核2G4M 服务器新客99元/年起',        link: 'https://cloud.tencent.com/act/cps/redirect?redirect=6544&cps_key=224cb4c4bfe2c3f5a83abecc2d07cf26&from=console' },
   { text: '【WorkBuddy】全场景AI工作台，团队旗舰版低至198元/月', link: 'https://cloud.tencent.com/act/cps/redirect?redirect=6871&cps_key=224cb4c4bfe2c3f5a83abecc2d07cf26&from=console' },
-  // 想加多少加多少，一行一条
+  { text: '【拼多多】站长专属内部福利入口，限时折扣有惊喜', link: 'https://mobile.yangkeduo.com/muti_coupon_rec.html?_pdd_fs=1&__page=ddjb_act_coupon_adv&__mav2=1&traffic=web_gen_url&pid=44784951_317995639&cpsSign=ZXMP_260915_44784951_317995639_2b6ec8d162154425600007b816bd81f9&_x_ddjb_act=%7B%22st%22%3A%22168%22%7D&traffic=prom&duoduo_type=2' },   // 想加多少加多少，一行一条
 ]
-const RECO_INTERVAL_MS = 5000   // 4 秒滚一次
+const RECO_INTERVAL_MS = 5000   // 5 秒滚一次
 const RECO_LINE_H = 20          // 每行高度 px，和 CSS 保持一致
 const recoWindowStart = ref(0)  // 当前视口顶部的 item 索引
 const recoOffset = ref(0)       // translateY 偏移量
