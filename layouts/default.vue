@@ -28,12 +28,31 @@
     <slot />
   </main>
  
-  <!-- 页脚 -->
-  <footer class="site-footer">
+<!-- 页脚 -->
+<footer class="site-footer">
+  <!-- 站长推荐 · 轮播 -->
+  <div class="footer-reco">
+    <span class="footer-reco__label">💡 站长推荐</span>
+    <div class="footer-reco__viewport">
+      <Transition name="reco-slide" mode="out-in">
+        <a
+          :key="currentRecoIdx"
+          :href="recoItems[currentRecoIdx].link"
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          class="footer-reco__link"
+        >{{ recoItems[currentRecoIdx].text }}</a>
+      </Transition>
+    </div>
+  </div>
+ 
+  <!-- 原有的隐私政策 + 版权 -->
+  <div class="footer-legal">
     <NuxtLink to="/privacy" class="footer-link">隐私政策</NuxtLink>
     <span class="footer-sep">·</span>
     <span class="footer-copy">© {{ new Date().getFullYear() }} 胖虎网盘搜索</span>
-  </footer>
+  </div>
+</footer>
  
   <!-- 自定义支持弹窗 -->
   <Teleport to="body">
@@ -77,7 +96,18 @@ useHead({
 });
  
 const { loadSettings } = useSettings();
- 
+
+// ── 站长推荐轮播 ──
+const recoItems = [
+  { text: '硅基流动-注册认证即得￥16全平台通用代金券 →', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
+  { text: '✨宝可梦加速器，高频稳定VPN体验 →',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
+  { text: '百度网盘超级会员 5 折起 →',          link: 'https://example.com/baidu' },
+  { text: '115 网盘 VIP 年费限时立减 →',        link: 'https://example.com/115' },
+  // 想加多少加多少，一行一条
+]
+const currentRecoIdx = ref(0)
+let recoTimer: ReturnType<typeof setInterval> | null = null
+  
 onMounted(() => {
   loadSettings();
   loadAnnouncements();
