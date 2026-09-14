@@ -61,7 +61,7 @@
       <div class="support-modal">
         <button class="support-close" type="button" @click="closeSupportModal" aria-label="关闭" title="关闭">✕</button>
         <h3 class="support-title">☕ 帮帮小水管服务器</h3>
-        <p class="support-desc">服务器成本不小，如果觉得好用，扫码支持一下吧</p>
+        <p class="support-desc">服务器开销较高，如果觉得好用，欢迎赞赏支持一下续口气🌹</p>
         <img
           src="/support-qr.png"
           alt="扫码支持"
@@ -100,13 +100,14 @@ const { loadSettings } = useSettings();
  
 // ── 站长推荐：双行向上滚动轮播 ──
 const recoItems = [
-  { text: '硅基流动词元（Token）供应平台，注册认证即得￥16全平台通用代金券', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
-  { text: '✨宝可梦加速器，高频稳定VPN体验，一键连接全球网络',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
-  { text: 'Racknerd美国超高性价比VPS、服务器，优惠码：15OFFDEDI 永久享受85折优惠', link: 'https://my.racknerd.com/aff.php?aff=8231' },
-  { text: '115 网盘 VIP 年费限时立减 →',        link: 'https://example.com/115' },
+  { text: '【硅基流动】点此注册拿￥16全平台通用代金券', link: 'https://cloud.siliconflow.cn/i/ddWlmzS3' },
+  { text: '✨【宝可梦加速器】稳定VPN，一键连接全球网络',       link: 'https://love2.p6m6.com/#/register?code=DMzcK8mG' },
+  { text: '【RN】美国超高性价比服务器，优惠码:15OFFDEDI', link: 'https://my.racknerd.com/aff.php?aff=8231' },
+  { text: '【腾讯云】AI焕新 2核2G4M 服务器新客99元/年起',        link: 'https://cloud.tencent.com/act/cps/redirect?redirect=6544&cps_key=224cb4c4bfe2c3f5a83abecc2d07cf26&from=console' },
+  { text: '【WorkBuddy】全场景AI工作台，团队旗舰版低至198元/月', link: 'https://cloud.tencent.com/act/cps/redirect?redirect=6871&cps_key=224cb4c4bfe2c3f5a83abecc2d07cf26&from=console' },
   // 想加多少加多少，一行一条
 ]
-const RECO_INTERVAL_MS = 4000   // 4 秒滚一次
+const RECO_INTERVAL_MS = 5000   // 4 秒滚一次
 const RECO_LINE_H = 20          // 每行高度 px，和 CSS 保持一致
 const recoWindowStart = ref(0)  // 当前视口顶部的 item 索引
 const recoOffset = ref(0)       // translateY 偏移量
