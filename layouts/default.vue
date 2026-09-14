@@ -114,7 +114,7 @@ const recoItems = [
   // 想加多少加多少，一行一条
 ]
 const currentRecoIdx = ref(0)
-const RECO_INTERVAL_MS = 4000 // 4 秒轮播
+const RECO_INTERVAL_MS = 5000 // 4 秒轮播
 let recoTimer: ReturnType<typeof setInterval> | null = null
  
 /** 切到下一条推荐 */
@@ -478,18 +478,20 @@ function dismissAnnouncement() {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   padding: 6px 0 10px;
   font-size: 13px;
   white-space: nowrap;
   overflow: hidden;
+  max-width: 100%;
 }
 .footer-reco__label {
   color: var(--text-tertiary, #9ca3af);
   flex-shrink: 0;
 }
 .footer-reco__viewport {
-  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
   overflow: hidden;
   height: 20px;
   display: flex;
@@ -499,45 +501,17 @@ function dismissAnnouncement() {
   color: var(--text-secondary, #6b7280);
   text-decoration: none;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 .footer-reco__link:hover {
   color: var(--accent, #2563eb);
 }
-
-/* 移动端：推荐文字允许换行 */
-@media (max-width: 640px) {
-  .footer-reco {
-    flex-wrap: wrap;
-    white-space: normal;
-    overflow: visible;
-    gap: 2px 6px;
-    padding: 6px 8px 10px;
-    font-size: 12px;
-  }
-  .footer-reco__label {
-    order: 1;
-  }
-  .footer-reco__pulse {
-    order: 2;
-    margin-left: 0;
-  }
-  .footer-reco__viewport {
-    order: 3;
-    flex: 0 1 100%;
-    height: auto;
-    overflow: visible;
-  }
-  .footer-reco__link {
-    white-space: normal;
-    word-break: break-all;
-  }
-}
-  
-/* 呼吸灯按钮：小圆点缓慢明暗脉动，hover 加速，点击切下一条 */
+ 
+/* 呼吸灯 */
 .footer-reco__pulse {
   flex-shrink: 0;
-  width: 5px;          /* 8px → 5px */
-  height: 5px;         /* 8px → 5px */
+  width: 4px;
+  height: 4px;
   border: none;
   border-radius: 50%;
   padding: 0;
@@ -545,7 +519,7 @@ function dismissAnnouncement() {
   background: var(--primary, #0f766e);
   animation: recoPulse 3s ease-in-out infinite;
   transition: background 0.2s;
-  margin-left: 2px;
+  margin-left: 1px;
 }
 .footer-reco__pulse:hover {
   animation-duration: 1s;
@@ -553,7 +527,38 @@ function dismissAnnouncement() {
 }
 @keyframes recoPulse {
   0%, 100% { opacity: 0.3; transform: scale(1); }
-  50%      { opacity: 1;   transform: scale(1.25); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+ 
+/* 移动端：纵排，文字换行 */
+@media (max-width: 640px) {
+  .footer-reco {
+    flex-direction: column;
+    align-items: center;
+    white-space: normal;
+    overflow: visible;
+    gap: 4px;
+    padding: 8px 16px 10px;
+    font-size: 12px;
+  }
+  .footer-reco__label {
+    /* label 和呼吸灯同一行 */
+  }
+  .footer-reco__viewport {
+    flex: none;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    text-align: center;
+  }
+  .footer-reco__link {
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .footer-reco__pulse {
+    display: none;
+  }
 }
  
 /* 轮播滑动过渡 */
