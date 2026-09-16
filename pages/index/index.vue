@@ -47,7 +47,8 @@
         </div>
                 <div class="hero-friends">
           <span class="hero-friends-label">赞助友链</span>
-          <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光多平台素材解析</a>
+          <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光·多平台视频音频解析</a>
+          <a class="hero-friend" href="https://www.apxgame.net?aff=22633" target="_blank" rel="noopener noreferrer">APX最全中文单机游戏平台</a>
           <a class="hero-friend" href="https://duoduozhizao.131452.best/" target="_blank" rel="noopener noreferrer">多多智造AI客服助手</a>
         </div>
       </header>
