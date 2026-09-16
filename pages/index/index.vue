@@ -48,13 +48,13 @@
               <div class="hero-friends">
           <span class="hero-friends-label">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            友情链接
+            赞助友链
           </span>
           <div class="hero-friends-list">
             <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光·多平台视频音频解析</a>
-          <a class="hero-friend" href="https://www.apxgame.net?aff=22633" target="_blank" rel="noopener noreferrer">APX最全中文单机游戏平台</a>
-          <a class="hero-friend" href="https://duoduozhizao.131452.best/" target="_blank" rel="noopener noreferrer">多多智造AI客服助手</a>
           <a class="hero-friend" href="https://axu.xpsup.cn/?pid=47799" target="_blank" rel="noopener noreferrer">阿虚同学自营会员商城</a>
+          <a class="hero-friend" href="https://www.apxgame.net?aff=22633" target="_blank" rel="noopener noreferrer">APX最全中文单机游戏平台</a>
+          <a class="hero-friend" href="https://duoduozhizao.131452.best/" target="_blank" rel="noopener noreferrer">多多智造商家AI客服助手</a>
           </div>
         </div>
     
