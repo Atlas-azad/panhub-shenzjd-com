@@ -45,12 +45,19 @@
             <span class="hero-stat-label">相关优先</span>
           </div>
         </div>
-                <div class="hero-friends">
-          <span class="hero-friends-label">赞助友链</span>
-          <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光·多平台视频音频解析</a>
+              <div class="hero-friends">
+          <span class="hero-friends-label">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            友情链接
+          </span>
+          <div class="hero-friends-list">
+            <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光·多平台视频音频解析</a>
           <a class="hero-friend" href="https://www.apxgame.net?aff=22633" target="_blank" rel="noopener noreferrer">APX最全中文单机游戏平台</a>
           <a class="hero-friend" href="https://duoduozhizao.131452.best/" target="_blank" rel="noopener noreferrer">多多智造AI客服助手</a>
+          <a class="hero-friend" href="https://axu.xpsup.cn/?pid=47799" target="_blank" rel="noopener noreferrer">阿虚同学自营会员商城</a>
+          </div>
         </div>
+    
       </header>
     </div>
 
@@ -706,55 +713,81 @@ function visibleSorted(items: any[]) {
   background: var(--border-medium);
 }
 
-  /* 友链 */
+/* 友链 */
 .hero-friends {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 6px 10px;
-  margin-top: 2px;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 8px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
 }
  
 .hero-friends-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 11px;
   font-weight: 600;
-  color: var(--text-tertiary);
-  letter-spacing: 0.04em;
-  padding-right: 2px;
+  color: var(--primary);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
  
-.hero-friends-label::after {
-  content: "·";
-  margin-left: 6px;
-  opacity: 0.4;
+.hero-friends-label svg {
+  opacity: 0.5;
+}
+ 
+.hero-friends-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
 }
  
 .hero-friend {
   font-size: 11px;
   font-weight: 500;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   text-decoration: none;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  position: relative;
   transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+ 
+.hero-friend + .hero-friend::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 10px;
+  background: var(--border-medium);
+  opacity: 0.6;
 }
  
 .hero-friend:hover {
   color: var(--primary);
-  background: rgba(26, 122, 109, 0.04);
+  background: rgba(26, 122, 109, 0.06);
 }
  
-.hero-friend::after {
-  content: "↗";
-  font-size: 9px;
-  margin-left: 2px;
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
- 
-.hero-friend:hover::after {
-  opacity: 0.6;
+/* 移动端 */
+@media (max-width: 640px) {
+  .hero-friends {
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 14px;
+  }
+  .hero-friends-list { justify-content: center; }
+  .hero-friend { font-size: 10px; padding: 2px 8px; }
+  .hero-friends-label { font-size: 10px; }
 }
   
 @keyframes heroReveal {
@@ -992,9 +1025,6 @@ function visibleSorted(items: any[]) {
   .empty-icon svg { width: 28px; height: 28px; }
   .empty-card h3 { font-size: 16px; }
 
-  .hero-friends { gap: 4px 8px; }
-  .hero-friend { font-size: 10px; }
-  .hero-friends-label { font-size: 10px; }
 }
  
 /* 高对比度 */
