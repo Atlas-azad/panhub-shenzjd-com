@@ -45,6 +45,11 @@
             <span class="hero-stat-label">相关优先</span>
           </div>
         </div>
+                <div class="hero-friends">
+          <span class="hero-friends-label">赞助友链</span>
+          <a class="hero-friend" href="https://shiguang.aihub.ren/" target="_blank" rel="noopener noreferrer">拾光多平台素材解析</a>
+          <a class="hero-friend" href="https://duoduozhizao.131452.best/" target="_blank" rel="noopener noreferrer">多多智造AI客服助手</a>
+        </div>
       </header>
     </div>
 
@@ -699,7 +704,58 @@ function visibleSorted(items: any[]) {
   height: 28px;
   background: var(--border-medium);
 }
+
+  /* 友链 */
+.hero-friends {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-top: 2px;
+}
  
+.hero-friends-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+  padding-right: 2px;
+}
+ 
+.hero-friends-label::after {
+  content: "·";
+  margin-left: 6px;
+  opacity: 0.4;
+}
+ 
+.hero-friend {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: all var(--transition-fast);
+}
+ 
+.hero-friend:hover {
+  color: var(--primary);
+  background: rgba(26, 122, 109, 0.04);
+}
+ 
+.hero-friend::after {
+  content: "↗";
+  font-size: 9px;
+  margin-left: 2px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+ 
+.hero-friend:hover::after {
+  opacity: 0.6;
+}
+  
 @keyframes heroReveal {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -934,6 +990,10 @@ function visibleSorted(items: any[]) {
   .empty-icon { width: 52px; height: 52px; border-radius: 14px; }
   .empty-icon svg { width: 28px; height: 28px; }
   .empty-card h3 { font-size: 16px; }
+
+  .hero-friends { gap: 4px 8px; }
+  .hero-friend { font-size: 10px; }
+  .hero-friends-label { font-size: 10px; }
 }
  
 /* 高对比度 */
