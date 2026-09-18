@@ -4,7 +4,7 @@
  */
  
 /** 每搜索多少次自愿弹一次 */
-const POPUP_EVERY = 5;
+const POPUP_EVERY = 7;
 /** 搜索计数 localStorage key */
 const SEARCH_COUNT_KEY = "panhub:search-count";
  
