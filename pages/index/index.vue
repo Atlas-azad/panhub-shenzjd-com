@@ -247,7 +247,7 @@
     <div class="wx-modal">
       <button class="wx-modal__close" @click="showSponsor = false">✕</button>
       <img class="wx-modal__qr" src="/wx-sponsor-qr.png" alt="微信赞赏码" />
-      <p class="wx-modal__hint">服务器费用由大家共同维持</p>
+      <p class="wx-modal__hint">帮助服务器费用持续支出</p>
       <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
     </div>
   </div>
