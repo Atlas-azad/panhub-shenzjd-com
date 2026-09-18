@@ -1313,47 +1313,103 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer-contact { font-size: 10px; }
 }
 
-  /* 两个按钮并排 */
+/* hero 内社区 & 赞助按钮 —— 小巧风格 */
 .hero-wx-group {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-top: 16px;
+  gap: 8px;
+  margin-top: 12px;
   flex-wrap: wrap;
 }
 .hero-wx-group-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 14px;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  line-height: 1.4;
 }
  
-/* 赞助按钮：暖橙调 */
+/* 赞助：暖橙 */
 .hero-wx-group-btn--sponsor {
-  border: 1px solid rgba(251, 146, 60, 0.4);
-  background: rgba(251, 146, 60, 0.08);
+  border: 1px solid rgba(251, 146, 60, 0.35);
+  background: rgba(251, 146, 60, 0.06);
   color: #f97316;
 }
 .hero-wx-group-btn--sponsor:hover {
-  background: rgba(251, 146, 60, 0.16);
-  border-color: rgba(251, 146, 60, 0.6);
-  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.15);
+  background: rgba(251, 146, 60, 0.14);
+  border-color: rgba(251, 146, 60, 0.55);
 }
  
-/* 交流群按钮：微信绿 */
+/* 交流群：微信绿 */
 .hero-wx-group-btn--wx {
-  border: 1px solid rgba(7, 193, 96, 0.4);
-  background: rgba(7, 193, 96, 0.08);
+  border: 1px solid rgba(7, 193, 96, 0.35);
+  background: rgba(7, 193, 96, 0.06);
   color: #07c160;
 }
 .hero-wx-group-btn--wx:hover {
-  background: rgba(7, 193, 96, 0.16);
-  border-color: rgba(7, 193, 96, 0.6);
-  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.15);
+  background: rgba(7, 193, 96, 0.14);
+  border-color: rgba(7, 193, 96, 0.55);
+}
+ 
+/* 弹窗遮罩 + 卡片 */
+.wx-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  animation: wxFadeIn 0.2s ease;
+}
+.wx-modal {
+  position: relative;
+  background: var(--bg, #fff);
+  border-radius: 12px;
+  padding: 28px 24px 20px;
+  text-align: center;
+  max-width: 280px;
+  width: 88%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+.wx-modal__close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-tertiary, #9ca3af);
+}
+.wx-modal__close:hover {
+  color: var(--text-secondary, #4b5563);
+}
+.wx-modal__qr {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+.wx-modal__hint {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary, #111);
+  margin: 0 0 4px;
+}
+.wx-modal__sub {
+  font-size: 12px;
+  color: var(--text-tertiary, #9ca3af);
+  margin: 0;
+}
+@keyframes wxFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>
