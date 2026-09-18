@@ -45,6 +45,17 @@
             <span class="hero-stat-label">相关优先</span>
           </div>
         </div>
+        <!-- 社区 & 赞助入口 -->
+<div class="hero-wx-group">
+  <button class="hero-wx-group-btn hero-wx-group-btn--sponsor" @click="showSponsor = true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    赞助续费服务器
+  </button>
+  <button class="hero-wx-group-btn hero-wx-group-btn--wx" @click="showWxGroup = true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.637C5.357 3.875 2.8 6.716 2.8 10c0 1.8.68 3.44 1.8 4.7L3 18l3.6-1.2c1.12.52 2.36.8 3.6.8.36 0 .72-.02 1.07-.06A6.008 6.008 0 0 0 12 18c0-3.316 2.684-6 6-6 .04 0 .08 0 .12.002-.04-4.16-2.84-7.72-6.64-9.12A8.04 8.04 0 0 0 8.8 2.4c-.04 0-.076.002-.109.237zM7.2 8.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zm4.8 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zM18 13.2c-2.652 0-4.8 2.148-4.8 4.8s2.148 4.8 4.8 4.8c.84 0 1.64-.216 2.34-.6L23.4 23.4l-.66-2.64A4.77 4.77 0 0 0 22.8 18c0-2.652-2.148-4.8-4.8-4.8zm-1.8 4.8a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2zm3.6 0a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2z"/></svg>
+    加入微信交流群
+  </button>
+</div>
               <div class="hero-friends">
           <span class="hero-friends-label">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
@@ -220,6 +231,27 @@
  
  
   </div>
+
+  <!-- 微信交流群二维码弹窗 -->
+<div v-if="showWxGroup" class="wx-overlay" @click.self="showWxGroup = false">
+  <div class="wx-modal">
+    <button class="wx-modal__close" @click="showWxGroup = false">✕</button>
+    <img class="wx-modal__qr" src="/wx-group-qr.png" alt="微信交流群二维码" />
+    <p class="wx-modal__hint">有问题或建议都可以在这里反馈</p>
+    <p class="wx-modal__sub">长按识别二维码加入群聊</p>
+  </div>
+<!-- 微信赞赏码弹窗 -->
+<div v-if="showSponsor" class="wx-overlay" @click.self="showSponsor = false">
+  <div class="wx-modal">
+    <button class="wx-modal__close" @click="showSponsor = false">✕</button>
+    <img class="wx-modal__qr" src="/wx-sponsor-qr.png" alt="微信赞赏码" />
+    <p class="wx-modal__hint">服务器费用由大家共同维持</p>
+    <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
+  </div>
+</div>
+  
+</div>
+  
 </template>
 
 <script setup lang="ts">
@@ -232,6 +264,8 @@ const apiBase = (config.public?.apiBase as string) || "/api";
 const siteUrl = (config.public?.siteUrl as string) || "";
 const route = useRoute();
 const router = useRouter();
+const showWxGroup = ref(false);
+const showSponsor = ref(false);
 
 // 搜索小贴士
 const tips = [
@@ -1275,5 +1309,49 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
+}
+
+  /* 两个按钮并排 */
+.hero-wx-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.hero-wx-group-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+ 
+/* 赞助按钮：暖橙调 */
+.hero-wx-group-btn--sponsor {
+  border: 1px solid rgba(251, 146, 60, 0.4);
+  background: rgba(251, 146, 60, 0.08);
+  color: #f97316;
+}
+.hero-wx-group-btn--sponsor:hover {
+  background: rgba(251, 146, 60, 0.16);
+  border-color: rgba(251, 146, 60, 0.6);
+  box-shadow: 0 2px 8px rgba(251, 146, 60, 0.15);
+}
+ 
+/* 交流群按钮：微信绿 */
+.hero-wx-group-btn--wx {
+  border: 1px solid rgba(7, 193, 96, 0.4);
+  background: rgba(7, 193, 96, 0.08);
+  color: #07c160;
+}
+.hero-wx-group-btn--wx:hover {
+  background: rgba(7, 193, 96, 0.16);
+  border-color: rgba(7, 193, 96, 0.6);
+  box-shadow: 0 2px 8px rgba(7, 193, 96, 0.15);
 }
 </style>
