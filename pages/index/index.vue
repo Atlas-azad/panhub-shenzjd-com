@@ -230,7 +230,6 @@
     </section>
  
  
-  </div>
 
   <!-- 微信交流群二维码弹窗 -->
 <div v-if="showWxGroup" class="wx-overlay" @click.self="showWxGroup = false">
@@ -249,9 +248,10 @@
     <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
   </div>
 </div>
-  
 </div>
-  
+
+    
+  </div>
 </template>
 
 <script setup lang="ts">
