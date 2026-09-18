@@ -231,24 +231,26 @@
  
  
 
-  <!-- 微信交流群二维码弹窗 -->
-<div v-if="showWxGroup" class="wx-overlay" @click.self="showWxGroup = false">
-  <div class="wx-modal">
-    <button class="wx-modal__close" @click="showWxGroup = false">✕</button>
-    <img class="wx-modal__qr" src="/wx-group-qr.png" alt="微信交流群二维码" />
-    <p class="wx-modal__hint">有问题或建议都可以在这里反馈</p>
-    <p class="wx-modal__sub">长按识别二维码加入群聊</p>
+ 
+  <!-- ✅ 微信交流群弹窗（放在 .home 内、.hero-row 外，避免 overflow:hidden 裁剪） -->
+  <div v-if="showWxGroup" class="wx-overlay" @click.self="showWxGroup = false">
+    <div class="wx-modal">
+      <button class="wx-modal__close" @click="showWxGroup = false">✕</button>
+      <img class="wx-modal__qr" src="/wx-group-qr.png" alt="微信交流群二维码" />
+      <p class="wx-modal__hint">有问题或建议都可以在这里反馈</p>
+      <p class="wx-modal__sub">长按识别二维码加入群聊</p>
+    </div>
   </div>
-<!-- 微信赞赏码弹窗 -->
-<div v-if="showSponsor" class="wx-overlay" @click.self="showSponsor = false">
-  <div class="wx-modal">
-    <button class="wx-modal__close" @click="showSponsor = false">✕</button>
-    <img class="wx-modal__qr" src="/wx-sponsor-qr.png" alt="微信赞赏码" />
-    <p class="wx-modal__hint">服务器费用由大家共同维持</p>
-    <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
+ 
+  <!-- ✅ 微信赞赏码弹窗 -->
+  <div v-if="showSponsor" class="wx-overlay" @click.self="showSponsor = false">
+    <div class="wx-modal">
+      <button class="wx-modal__close" @click="showSponsor = false">✕</button>
+      <img class="wx-modal__qr" src="/wx-sponsor-qr.png" alt="微信赞赏码" />
+      <p class="wx-modal__hint">服务器费用由大家共同维持</p>
+      <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
+    </div>
   </div>
-</div>
-</div>
 
     
   </div>
