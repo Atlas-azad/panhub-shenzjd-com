@@ -1314,8 +1314,8 @@ function visibleSorted(items: any[]) {
   
     /* 移动端：社区/赞助按钮更小 */
   .hero-wx-group {
-    gap: 6px;
-    margin-top: 8px;
+    gap: 5px;
+    margin-top: 7px;
   }
   .hero-wx-group-btn {
     padding: 3px 8px;
