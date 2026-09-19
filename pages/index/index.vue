@@ -47,6 +47,10 @@
         </div>
         <!-- 社区 & 赞助入口 -->
 <div class="hero-wx-group">
+  <button class="hero-wx-group-btn hero-wx-group-btn--announce" @click="showAnnounce = true">
+    <svg class="hero-wx-group-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    更新
+  </button>
   <button class="hero-wx-group-btn hero-wx-group-btn--sponsor" @click="showSponsor = true">
     <svg class="hero-wx-group-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
     赞助服务器
@@ -251,7 +255,18 @@
       <p class="wx-modal__sub">每一份赞赏都是持续运营的动力 ❤️</p>
     </div>
   </div>
-
+<!-- 公告弹窗 -->
+<div v-if="showAnnounce" class="wx-overlay" @click.self="showAnnounce = false">
+  <div class="wx-modal wx-modal--announce">
+    <button class="wx-modal__close" @click="showAnnounce = false">✕</button>
+    <h3 class="wx-modal__title">📢 更新公告</h3>
+    <div class="wx-modal__body">
+      <p>1. 增加磁力搜索</p>
+      <p>2. 优化搜索结果去重逻辑</p>
+      <p>3. 修复移动端适配问题</p>
+    </div>
+  </div>
+</div>
     
   </div>
 </template>
@@ -268,6 +283,7 @@ const route = useRoute();
 const router = useRouter();
 const showWxGroup = ref(false);
 const showSponsor = ref(false);
+const showAnnounce = ref(false);
 
 // 搜索小贴士
 const tips = [
@@ -1378,7 +1394,36 @@ function visibleSorted(items: any[]) {
   background: rgba(7, 193, 96, 0.14);
   border-color: rgba(7, 193, 96, 0.55);
 }
+ /* 公告按钮：青色，和 hero 主色调一致 */
+.hero-wx-group-btn--announce {
+  border: 1px solid rgba(15, 118, 110, 0.35);
+  background: rgba(15, 118, 110, 0.06);
+  color: var(--primary, #0f766e);
+}
+.hero-wx-group-btn--announce:hover {
+  background: rgba(15, 118, 110, 0.14);
+  border-color: rgba(15, 118, 110, 0.55);
+}
  
+/* 公告弹窗：比二维码弹窗宽一点 */
+.wx-modal--announce {
+  max-width: 360px;
+}
+.wx-modal__title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary, #111);
+}
+.wx-modal__body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-secondary, #4b5563);
+  text-align: left;
+}
+.wx-modal__body p {
+  margin: 0 0 6px;
+}
 
   
 /* 弹窗遮罩 + 卡片 */
