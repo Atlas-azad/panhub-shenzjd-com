@@ -1311,6 +1311,20 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
+    /* 移动端：社区/赞助按钮更小 */
+  .hero-wx-group {
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .hero-wx-group-btn {
+    padding: 3px 8px;
+    font-size: 11px;
+    gap: 3px;
+  }
+  .hero-wx-group-btn svg {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* hero 内社区 & 赞助按钮 —— 小巧风格 */
