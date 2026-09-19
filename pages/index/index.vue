@@ -48,12 +48,12 @@
         <!-- 社区 & 赞助入口 -->
 <div class="hero-wx-group">
   <button class="hero-wx-group-btn hero-wx-group-btn--sponsor" @click="showSponsor = true">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    赞助续费服务器
+    <svg class="hero-wx-group-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    赞助服务器
   </button>
   <button class="hero-wx-group-btn hero-wx-group-btn--wx" @click="showWxGroup = true">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.637C5.357 3.875 2.8 6.716 2.8 10c0 1.8.68 3.44 1.8 4.7L3 18l3.6-1.2c1.12.52 2.36.8 3.6.8.36 0 .72-.02 1.07-.06A6.008 6.008 0 0 0 12 18c0-3.316 2.684-6 6-6 .04 0 .08 0 .12.002-.04-4.16-2.84-7.72-6.64-9.12A8.04 8.04 0 0 0 8.8 2.4c-.04 0-.076.002-.109.237zM7.2 8.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zm4.8 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zM18 13.2c-2.652 0-4.8 2.148-4.8 4.8s2.148 4.8 4.8 4.8c.84 0 1.64-.216 2.34-.6L23.4 23.4l-.66-2.64A4.77 4.77 0 0 0 22.8 18c0-2.652-2.148-4.8-4.8-4.8zm-1.8 4.8a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2zm3.6 0a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2z"/></svg>
-    加入微信交流群
+    <svg class="hero-wx-group-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.637C5.357 3.875 2.8 6.716 2.8 10c0 1.8.68 3.44 1.8 4.7L3 18l3.6-1.2c1.12.52 2.36.8 3.6.8.36 0 .72-.02 1.07-.06A6.008 6.008 0 0 0 12 18c0-3.316 2.684-6 6-6 .04 0 .08 0 .12.002-.04-4.16-2.84-7.72-6.64-9.12A8.04 8.04 0 0 0 8.8 2.4c-.04 0-.076.002-.109.237zM7.2 8.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zm4.8 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4zM18 13.2c-2.652 0-4.8 2.148-4.8 4.8s2.148 4.8 4.8 4.8c.84 0 1.64-.216 2.34-.6L23.4 23.4l-.66-2.64A4.77 4.77 0 0 0 22.8 18c0-2.652-2.148-4.8-4.8-4.8zm-1.8 4.8a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2zm3.6 0a.6.6 0 1 1 0-1.2.6.6 0 0 1 0 1.2z"/></svg>
+    加入交流群
   </button>
 </div>
               <div class="hero-friends">
@@ -1312,40 +1312,49 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
   
-    /* 移动端：社区/赞助按钮更小 */
-  .hero-wx-group {
-    gap: 5px;
-    margin-top: 7px;
+    .hero-wx-group {
+    gap: 4px;
+    margin-top: 6px;
   }
   .hero-wx-group-btn {
-    padding: 3px 8px;
-    font-size: 11px;
-    gap: 3px;
+    padding: 1px 6px;
+    font-size: 10px;
+    gap: 2px;
+    border-radius: 8px;
+    line-height: 1.3;
   }
-  .hero-wx-group-btn svg {
-    width: 12px;
-    height: 12px;
+  .hero-wx-group-icon {
+    width: 10px;
+    height: 10px;
   }
 }
 
+
+/* ========== 社区 & 赞助按钮 ========== */
 .hero-wx-group {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
 }
 .hero-wx-group-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 12px;
-  border-radius: 14px;
-  font-size: 12px;
+  gap: 3px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
   font-weight: 500;
+  line-height: 1.4;
   cursor: pointer;
   transition: all 0.2s ease;
-  line-height: 1.4;
+  white-space: nowrap;
+}
+.hero-wx-group-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
 }
  
 /* 赞助：暖橙 */
