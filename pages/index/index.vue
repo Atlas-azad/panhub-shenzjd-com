@@ -386,7 +386,7 @@ const {
 } = useSearch();
 const { settings, loadSettings } = useSettings();
 const { checkSearchAuth, forceVerify } = useWxAuth();
-// 自愿支持弹窗（floating-unlock）：每搜索 3 次自愿弹一次，不阻塞搜索
+// 自愿支持弹窗（floating-unlock）：每搜索 n 次自愿弹一次，不阻塞搜索
 const { maybeShowUnlockAd } = useUnlockAd();
 
 // 获取搜索选项（使用最新的用户设置）
@@ -1082,7 +1082,7 @@ function visibleSorted(items: any[]) {
   .pulse-dot { animation: none; opacity: 0.7; }
 }
 
-  /* 搜索小贴士 */
+  
 /* 搜索小贴士 */
 .search-tip {
   display: flex;
@@ -1313,19 +1313,19 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer-contact { font-size: 10px; }
   
     .hero-wx-group {
-    gap: 4px;
-    margin-top: 6px;
+    gap: 3px;
+    margin-top: 5px;
   }
   .hero-wx-group-btn {
-    padding: 1px 6px;
+    padding: 1px 5px;
     font-size: 10px;
     gap: 2px;
     border-radius: 8px;
-    line-height: 1.3;
+    line-height: 1.2;
   }
   .hero-wx-group-icon {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
 }
 
