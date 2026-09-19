@@ -1317,17 +1317,17 @@ function visibleSorted(items: any[]) {
 .hero-wx-group {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 6px;
+  margin-top: 8px;
   flex-wrap: wrap;
 }
 .hero-wx-group-btn {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 12px;
+  gap: 3px;
+  padding: 3px 8px;
   border-radius: 14px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1355,7 +1355,12 @@ function visibleSorted(items: any[]) {
   background: rgba(7, 193, 96, 0.14);
   border-color: rgba(7, 193, 96, 0.55);
 }
- 
+
+.hero-wx-group-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+  
 /* 弹窗遮罩 + 卡片 */
 .wx-overlay {
   position: fixed;
