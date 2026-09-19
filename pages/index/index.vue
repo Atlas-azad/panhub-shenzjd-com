@@ -1311,6 +1311,7 @@ function visibleSorted(items: any[]) {
   .tips-disclaimer { margin: 4px 18px 16px; padding: 12px 14px; }
   .tips-disclaimer-line { font-size: 10px; }
   .tips-disclaimer-contact { font-size: 10px; }
+  
     /* 移动端：社区/赞助按钮更小 */
   .hero-wx-group {
     gap: 6px;
@@ -1327,21 +1328,20 @@ function visibleSorted(items: any[]) {
   }
 }
 
-/* hero 内社区 & 赞助按钮 —— 小巧风格 */
 .hero-wx-group {
   display: flex;
   justify-content: center;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 12px;
   flex-wrap: wrap;
 }
 .hero-wx-group-btn {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  padding: 3px 8px;
+  gap: 4px;
+  padding: 4px 12px;
   border-radius: 14px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -1369,11 +1369,8 @@ function visibleSorted(items: any[]) {
   background: rgba(7, 193, 96, 0.14);
   border-color: rgba(7, 193, 96, 0.55);
 }
+ 
 
-.hero-wx-group-btn svg {
-    width: 12px;
-    height: 12px;
-  }
   
 /* 弹窗遮罩 + 卡片 */
 .wx-overlay {
